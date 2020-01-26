@@ -30,9 +30,7 @@
 				<input type="checkbox" id="password-check">	Check
 			</p>
 			<p>
-				<button type="button" style="width:100px" onclick="location.href='../Table/index.html'">
-					Login
-				</button>
+				<button type="button" style="width:100px" onclick="checkAccount()">Login</button>
 			</p><br>
 		</div>
 
@@ -51,6 +49,18 @@
          pwd.setAttribute('type', 'password');
      }
  }, false);
+
+
+function checkAccount(){
+
+	let var userName = document.getElementById("usename").value;
+
+	if(userNamr=="inui")
+		location.href = "../RPRS_D2/index.html";
+	}else{
+		location.href = "../Table/index.html";
+	}
+}
  </script> 
 
 
