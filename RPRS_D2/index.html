@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fukuda Denshi RPR System</title>
+    <link rel="icon" sizes="192x192" href="fukuda.png">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+      <div class="container0">
+          <!-- Video(Remote) -->
+          <div class="remote-streams" id="js-remote-streams"></div>
+
+          <div class="container200">
+              <div class="container210">
+
+                  <div class="patien-information">
+                      <!-- Title, button, Lables -->
+                      <div class="note">
+                          <br>Mode:<a href="#">mesh</a> / <a href="#sfu">sfu</a>
+                          <span id="js-room-mode"></span>  Room:
+                          <input type="text" placeholder="Room Name" id="js-room-id" value="001" style="width:50px;">
+
+                          <button id="js-send-trigger"    style="background:''; width:200px">Send Waveforms</button>
+                          <button id="js-send-calTrigger" style="background:''; width:100px">CAL</button>
+
+                          <div class="dataBattery">
+                              <a class="note2">Time:</a>
+                              <a class="note2" id="rihabilitationTime">00:00</a>
+                              <a class="note">Battery[%]:</a>
+                              <a class="note" id="statusBatteryLavel">--</a>
+                          </div>
+                      </div>
+
+                      <!-- Messages and button -->
+                      <div>
+                          <pre class="messages" id="js-messages"></pre>
+                      </div>
+                  </div>
+
+                  <div class="controls">
+                      <button class="buttons" id="js-join-trigger">Join Room</button>
+                      <button class="buttons" id="js-leave-trigger">Leave Room</button>
+                  </div>
+
+                  <div class="local-stream">
+                      <!-- Video(Local) -->
+                      <video id="js-local-stream"></video>
+                  </div>
+              </div>
+
+              <div class="container250">
+                  <!-- Trend graphs  -->
+                  <div class="parameterPR">
+                      <div class="dataPR">   <div class="note">PR [bpm]</div><div class="data" id="textPR">---</div></div>
+                      <div class="graph01">Trend Graph (PR)</div>
+                  </div>
+
+                  <div class="parameterSpO2">
+                      <div class="dataSpO2"> <div class="note">SpO2 [%]</div><div class="data" id="statusSpo2">--</div></div>
+                      <div class="graph01">Trend Graph (SpO2)</div>
+                  </div>
+
+                  <div class="parameterRR">
+                      <div class="dataRR">   <div class="note">RR [bpm]</div><div class="data" id="textRR">--</div></div>
+                      <div class="graph01">Trend Graph (RR)</div>
+                  </div>
+
+                  <div id="canvas_wrapper">
+                      <canvas id="waveformCanvas"></canvas>
+                  </div>
+                 <div class="meta"><p id="js-meta"></p></div>
+
+              </div>
+
+          </div>
+      </div>
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="//cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
+    <script type="text/javascript" src="key.js"></script>
+    <script type="text/javascript" src="webRTC.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="displayWaveforms.js"></script>
+
+  </body>
+</html>

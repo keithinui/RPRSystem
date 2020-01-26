@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+    <title>Fukuda RPR System</title>
+
+	<STYLE type="text/css">
+		 H1 { font-size: 4vw; color: #006bb7; font-family: Arial;}
+	</STYLE>
+</head>
+
+<body>
+<center>
+	<img srcset="fukuda.png 2x">
+	<h1>Fukuda Denshi RPR System</h1><br>
+	<p><b>User login</b></p>
+	<form>
+		<div style="width:400px; background:#f0f0f0; border:solid 1px #808080;">
+			<br>
+			<p>
+				User name:
+				<input type="text"     id="username" value="" placeholder="User name" style="width:50%">
+			</p>
+			<p>
+				Password :
+				<input type="password" id="password" value="" placeholder="password" class="field" style="width:50%">
+			</p>
+			<p>
+				<input type="checkbox" id="password-check">	Check
+			</p>
+			<p>
+				<button type="button" style="width:100px" onclick="location.href='../Table/index.html'">
+					Login
+				</button>
+			</p><br>
+		</div>
+
+	</form>
+
+
+</center>
+
+<script>
+ const pwd = document.getElementById('password');
+ const pwdCheck = document.getElementById('password-check');
+ pwdCheck.addEventListener('change', function() {
+     if(pwdCheck.checked) {
+         pwd.setAttribute('type', 'text');
+     } else {
+         pwd.setAttribute('type', 'password');
+     }
+ }, false);
+ </script> 
+
+
+
+  </body>
+</html>
