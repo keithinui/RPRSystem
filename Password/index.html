@@ -30,7 +30,7 @@
 				<input type="checkbox" id="password-check">	Check
 			</p>
 			<p>
-				<button type="button" style="width:100px" onclick="checkAccount()">Login</button>
+				<input type="button" style="width:100px" value="Login" onclick="checkAccount()">
 			</p><br>
 		</div>
 
@@ -53,9 +53,9 @@
 
 function checkAccount(){
 
-	let var userName = document.getElementById("usename").value;
+	let userName = document.getElementById("username").value;
 
-	if(userNamr=="inui")
+	if(userName=="inui"){
 		location.href = "../RPRS_D2/index.html";
 	}else{
 		location.href = "../Table/index.html";
