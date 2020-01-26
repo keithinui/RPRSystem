@@ -3,15 +3,17 @@
 //***************************************************************************
 var selectionNumber = 0;			// Selected row number
 var currentNumber = 0;				// Current room number
+
+// Table data   Row[0]:Header, Row[1]:Data,  Row[2]:Width in viewport width (100% of)
 var patientDataArray = [
 	// 
 	['Room\n#', '開始日', '開始\n時間', 'ID', '氏名', '年齢', '性別', 'PR\nMax.', 'PR\n目標', 'SpO2\nMin.', '目標\n歩数', '負荷内容', '体温\nMax.', '体温\nMin.', 'NIBP\nSys.\nMax.', 'NIBP\nDia.\nMax.', 'Patient comments', '医師名\n技師名' ],
 	['001', '2020/10/18', '14:00', '123456789', '福田 太郎', '75歳', '男', '150', '120', '90', '5,000', '', '37.0', '36.0', '120', '90', '', '順天 太郎'],
-	[ 50, 100, 50, 100, 80, 50, 50, 50, 50, 50, 50, 200, 50, 50, 50, 50, 200, 80]
+	[ 3, 6, 3, 6, 8, 3, 3, 3, 3, 3, 3, 12, 3, 3, 3, 3, 13, 6]
 ];
 
 const selectionColor = "#90EE90"	// Color setup for selection in LightGreen
-
+const tableRowheight = 4;
 
 
 //***************************************************************************
@@ -68,8 +70,8 @@ function addRowData(){
 
 	for(let n=1; n<tObj.rows[0].cells.length; n++){
 		insObj.insertCell(n).innerHTML = patientDataArray[1][n];
-		tObj.rows[idy].cells[n].style.textAlign = 'center';
-		tObj.rows[idy].cells[n].style.height = '40px';
+		tObj.rows[idy].cells[n].style.textAlign = "center";
+		tObj.rows[idy].cells[n].style.height = tableRowheight + "vh";
 	}
 }
 
@@ -167,13 +169,13 @@ window.onload = function () {
 
 		for(let c=0; c<tObj.rows[0].cells.length; c++){
 			if(r==0){
-				tObj.rows[r].cells[c].style.width = String(patientDataArray[2][c])+"px"; 
+				tObj.rows[r].cells[c].style.width = String(patientDataArray[2][c])+"vw"; 
 			}
 
 			// Set data and align
 			tObj.rows[r].cells[c].innerHTML = patientDataArray[r][c];
-			tObj.rows[r].cells[c].style.textAlign = 'center';
-			tObj.rows[r].cells[c].style.height = '40px';
+			tObj.rows[r].cells[c].style.textAlign = "center";
+			tObj.rows[r].cells[c].style.height = tableRowheight +"vh";
 
 		}
 	}
