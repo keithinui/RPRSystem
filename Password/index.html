@@ -12,11 +12,11 @@
 
 <body>
 <center>
-	<img srcset="..\RPRS_D2\fukuda.png 2x">
+	<img srcset="..\RPRS_D2\fukuda.png" style="width:10vw;">
 	<h1>Fukuda Denshi RPR System</h1><br>
 	<p><b>User login</b></p>
 	<form>
-		<div style="width:400px; background:#f0f0f0; border:solid 1px #808080;">
+		<div style="width:30vw; background:#f0f0f0; border:solid 1px #808080;">
 			<br>
 			<p>
 				User name:
@@ -57,7 +57,9 @@ function checkAccount(){
 
 	if(userName=="inui"){
 		location.href = "../RPRS_D2/index.html";
-	}else{
+	}
+
+	if(userName=="fukuda" && pwd.value=="fukuda") {
 		location.href = "../Table/index.html";
 	}
 }
