@@ -12,9 +12,10 @@ var patientDataArray = [
 	[ 3, 6, 3, 6, 8, 3, 3, 3, 3, 3, 3, 12, 3, 3, 3, 3, 13, 6]
 ];
 
-const selectionColor = "#90EE90";	// Color setup for selection in LightGreen
+const selectionColor = "linear-gradient(to bottom, #e0eee0, #70ee70)";	// Color setup for selection in LightGreen
+const defaultColr = "linear-gradient(to bottom, white, white)";
 const dataTableRowheight = 4;
-const headerColor = "#b0b0b0";
+const headerColor = "linear-gradient(to bottom, #d0d0d0, #909090)";
 
 
 //***************************************************************************
@@ -36,13 +37,13 @@ document.addEventListener ('click', e => {
 		selectionNumber = tmp;
 		let table = tr.parentNode.parentNode;
 
-		table.rows[0].style.backgroundColor = headerColor;	// Set header color for just in case
+		table.rows[0].style.background = headerColor;		// Set header color for just in case
 		for(let n=1; n<=table.rows["length"]-1; n++){
-			table.rows[n].style.backgroundColor = "white";	// Reset all rows color in white
+			table.rows[n].style.background = defaultColr;	// Reset all rows color in white
 		}
 
 		if(tr.sectionRowIndex>0){
-			tr.style.backgroundColor = selectionColor;		// Set selection color
+			tr.style.background = selectionColor;			// Set selection color
 		}
 	}
 }, false);
@@ -64,9 +65,9 @@ function addRowData(){
 	c.innerHTML = String(currentNumber).padStart(3, '0');
 
 	for(let n=1; n<=tObj.rows["length"]-1; n++){
-		tObj.rows[n].style.backgroundColor = "white";		// Reset all rows color in white
+		tObj.rows[n].style.background = defaultColr;		// Reset all rows color in white
 	}
-	tObj.rows[idy].style.backgroundColor = selectionColor;	// Set selection color
+	tObj.rows[idy].style.background = selectionColor;		// Set selection color
 	selectionNumber = idy;
 
 	for(let n=1; n<tObj.rows[0].cells.length; n++){
@@ -162,12 +163,12 @@ function startRehabilitation(){
 window.onload = function () {
 	let tObj = document.getElementById("tableK");
 
-	tObj.rows[0].style.backgroundColor = headerColor;				// Set header color
+	tObj.rows[0].style.background = headerColor;				// Set header color
 
 	for(let r=0; r<tObj.rows["length"]; r++){
 
 		if(r==1){
-			tObj.rows[r].style.backgroundColor = selectionColor;	// Set selection color
+			tObj.rows[r].style.background = selectionColor;		// Set selection color
 		}
 
 		for(let c=0; c<tObj.rows[0].cells.length; c++){
@@ -179,7 +180,6 @@ window.onload = function () {
 			tObj.rows[r].cells[c].innerHTML = patientDataArray[r][c];
 			tObj.rows[r].cells[c].style.textAlign = "center";
 			tObj.rows[r].cells[c].style.height = dataTableRowheight +"vh";
-
 		}
 	}
 
