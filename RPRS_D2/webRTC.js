@@ -1,8 +1,10 @@
 ﻿const Peer = window.Peer;
 var room;
 var peer;
-var waveLogData = [];  // Log data of waveforms 
+var waveLogData = [];  		// Log data of waveforms 
 var lastTime;
+var borgIndex;
+var borgDialogOpen = 0;		// 0: dialog not open,  1: dialog open
 
 (async function main() {
   const localVideo = document.getElementById('js-local-stream');
@@ -11,6 +13,7 @@ var lastTime;
   const roomMode = document.getElementById('js-room-mode');
   const localText = document.getElementById('js-local-text');
   const sendTrigger = document.getElementById('js-send-trigger');
+  const sendBorg = document.getElementById('js-send-borgTrigger');
   const messages = document.getElementById('js-messages');
   const meta = document.getElementById('js-meta');
   const sdkSrc = document.querySelector('script[src*=skyway]');
@@ -89,16 +92,17 @@ var lastTime;
     room.on('data', ({ data, src }) => {
       let cData = new Int16Array(data);
       if (cData.length == 30){
-        // Request Command data 
+        // Measurement data (16bit * 30 words)
         textPR.innerHTML             = cData[0];
         textRR.innerHTML             = cData[1];
         statusSpo2.innerHTML         = cData[2];
         statusBatteryLavel.innerHTML = cData[3];
+        textBorg.innerHTML           = cData[4];
         
         console.log("Data number=" + cData[26] + " Status=" + cData[28] + " Checksum=" + cData[29]);
 
       }else{
-        // Waveform data
+        // Waveform data (20bytes data )
         let buffer0 = new ArrayBuffer(4);
         let buffer1 = new ArrayBuffer(4);
         let rData = [new Int16Array(buffer0), new Int16Array(buffer1)];   // 2 * 2 16bit integer array
@@ -138,6 +142,7 @@ var lastTime;
     // for closing myself
     room.once('close', () => {
       sendTrigger.removeEventListener('click', onClickSend);
+      sendBrog.removeEventListener('click', onClickSendBorg);
       messages.textContent += '== You left ===\n';
       leaveTrigger.style.display = "none";
       joinTrigger.style.display = jtDisplayOriginal;
@@ -153,6 +158,7 @@ var lastTime;
     });
 
     sendTrigger.addEventListener('click', onClickSend);
+    sendBrog.addEventListener('click', onClickSendBorg);
     leaveTrigger.addEventListener('click', () => room.close(), { once: true });
 
 
@@ -212,7 +218,35 @@ var lastTime;
       room.send(tmpData);        // Send comand and checksum
       lastTime = Date.now();     // Set current time for evaluation
     }
+
+    /////////////////////////////////////////////////////////////////////////
+    //  Request to open borg dialog
+    /////////////////////////////////////////////////////////////////////////
+    function onClickSendBorg() {
+	  console.log("Open borg dialog!");
+
+      let tmpData = "openBorgDl";
+      let checksum = 0;
+
+      // Make checksum data and convert it in complement
+      for(let n=0; n < 10; n++){
+        checksum += tmpData.charCodeAt(n);
+      }
+      checksum = 65536-checksum;
+
+      // Convert checksum data in hex and fix degit and add it in last
+      let tmpStr = checksum.toString(16).padStart(4, '0').substr(-2);
+      tmpData = tmpData + tmpStr.substring(1, 2) + tmpStr.substring(0, 1);  // Command + 2nd + 1st degit checksum
+      console.log("tmpData= " + tmpData);
+
+      room.send(tmpData);        // Send comand and checksum
+      borgDialogOpen = 1;
+    }
+
+
   });
 
   peer.on('error', console.error);
 })();
+
+

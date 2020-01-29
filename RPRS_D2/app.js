@@ -1,6 +1,6 @@
 ﻿var textPR = document.getElementById('textPR');
 var textRR = document.getElementById('textRR');
-var sendCal = document.getElementById('js-send-calTrigger');
+var textBorg = document.getElementById('textBorg');
 var leaveTrigger = document.getElementById('js-leave-trigger');
 
 var heartRateData;                // 0. Heart rate data
@@ -53,8 +53,5 @@ window.onload = function () {
   leaveTrigger.style = "background:#00F00F";
   ltDisplayOriginal  = leaveTrigger.style.display;
   leaveTrigger.style.display = "none";
-
-  // Hide CAL button for all mode
-  sendCal.style.display = "none";
 
 }
