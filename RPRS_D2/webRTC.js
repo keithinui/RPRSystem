@@ -102,7 +102,6 @@ var borgDialogOpen = 0;		// 0: dialog not open,  1: dialog open
         // Borg dialog check
         if((cData[4] & 0x30) != 0){
             borgDialogOpen = 0;
-            alert("Borg dialog closed.");
         }
 
         console.log("Data number=" + cData[26] + " Status=" + cData[28] + " Checksum=" + cData[29]);
