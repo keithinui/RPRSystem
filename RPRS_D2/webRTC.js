@@ -158,7 +158,7 @@ var borgDialogOpen = 0;		// 0: dialog not open,  1: dialog open
     });
 
     sendTrigger.addEventListener('click', onClickSend);
-    sendBrog.addEventListener('click', onClickSendBorg);
+    sendBorg.addEventListener('click', onClickSendBorg);
     leaveTrigger.addEventListener('click', () => room.close(), { once: true });
 
 
