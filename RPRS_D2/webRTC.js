@@ -142,7 +142,7 @@ var borgDialogOpen = 0;		// 0: dialog not open,  1: dialog open
     // for closing myself
     room.once('close', () => {
       sendTrigger.removeEventListener('click', onClickSend);
-      sendBrog.removeEventListener('click', onClickSendBorg);
+      sendBorg.removeEventListener('click', onClickSendBorg);
       messages.textContent += '== You left ===\n';
       leaveTrigger.style.display = "none";
       joinTrigger.style.display = jtDisplayOriginal;
