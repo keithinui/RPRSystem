@@ -12,8 +12,9 @@ var patientDataArray = [
 	[ 3, 6, 3, 6, 8, 3, 3, 3, 3, 3, 3, 12, 3, 3, 3, 3, 13, 6]
 ];
 
-const selectionColor = "#90EE90"	// Color setup for selection in LightGreen
-const tableRowheight = 4;
+const selectionColor = "#90EE90";	// Color setup for selection in LightGreen
+const dataTableRowheight = 4;
+const headerColor = "#b0b0b0";
 
 
 //***************************************************************************
@@ -35,7 +36,7 @@ document.addEventListener ('click', e => {
 		selectionNumber = tmp;
 		let table = tr.parentNode.parentNode;
 
-		table.rows[0].style.backgroundColor = "#b0b0b0";	// Set header colr for just in case
+		table.rows[0].style.backgroundColor = headerColor;	// Set header color for just in case
 		for(let n=1; n<=table.rows["length"]-1; n++){
 			table.rows[n].style.backgroundColor = "white";	// Reset all rows color in white
 		}
@@ -71,7 +72,7 @@ function addRowData(){
 	for(let n=1; n<tObj.rows[0].cells.length; n++){
 		insObj.insertCell(n).innerHTML = patientDataArray[1][n];
 		tObj.rows[idy].cells[n].style.textAlign = "center";
-		tObj.rows[idy].cells[n].style.height = tableRowheight + "vh";
+		tObj.rows[idy].cells[n].style.height = dataTableRowheight + "vh";
 	}
 }
 
@@ -161,6 +162,8 @@ function startRehabilitation(){
 window.onload = function () {
 	let tObj = document.getElementById("tableK");
 
+	tObj.rows[0].style.backgroundColor = headerColor;				// Set header color
+
 	for(let r=0; r<tObj.rows["length"]; r++){
 
 		if(r==1){
@@ -175,7 +178,7 @@ window.onload = function () {
 			// Set data and align
 			tObj.rows[r].cells[c].innerHTML = patientDataArray[r][c];
 			tObj.rows[r].cells[c].style.textAlign = "center";
-			tObj.rows[r].cells[c].style.height = tableRowheight +"vh";
+			tObj.rows[r].cells[c].style.height = dataTableRowheight +"vh";
 
 		}
 	}

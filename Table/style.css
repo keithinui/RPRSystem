@@ -10,9 +10,18 @@ body { margin:0; width:100%; height:100%;}
   font-size: 1.2vw;
   margin: 0 auto;
 }
+.buttons:active {
+  background-image: linear-gradient(#d0eed0 0%, #70ee70 100%);
+}
 
+/************************************************************************
+   class = table
+
+
+*************************************************************************/
 .table{
   font: 1.0vw "Arial";
+  width:100%; height:99%; overflow-y:auto;
 }
 
 .table tr th{
@@ -23,7 +32,7 @@ body { margin:0; width:100%; height:100%;}
 
 
 /************************************************************************
-   container0
+   class = container0
   _______________________________________________________________ ................. 
  |   container110  |  container120  |container130|  container140 |  container100 :
  |   width:30%     |  width:40%     |width:10%   |   width:30%   |  height:5%    :
