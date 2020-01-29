@@ -184,7 +184,7 @@ var borgDialogOpen = 0;		// 0: dialog not open,  1: dialog open
           a.target = '_blank';
           a.download = fileName;
           a.click();
-          waveLogData.length = 0;   // Clear log data
+          waveLogData.length = 0;          // Clear log data
         }
 
       }else{
@@ -202,51 +202,57 @@ var borgDialogOpen = 0;		// 0: dialog not open,  1: dialog open
 
       // Send sendWaveform request
       let tmpData = "waveform" + String(sendWaveforms).trim() + "_";
-      let checksum = 0;
 
-      // Make checksum data and convert it in complement
-      for(let n=0; n < 10; n++){
-        checksum += tmpData.charCodeAt(n);
-      }
-      checksum = 65536-checksum;
-
-      // Convert checksum data in hex and fix degit and add it in last
-      let tmpStr = checksum.toString(16).padStart(4, '0').substr(-2);
-      tmpData = tmpData + tmpStr.substring(1, 2) + tmpStr.substring(0, 1);  // Command + 2nd + 1st degit checksum
-      console.log("tmpData= " + tmpData);
-
-      room.send(tmpData);        // Send comand and checksum
-      lastTime = Date.now();     // Set current time for evaluation
+      room.send(addChecksum(tmpData));     // Send comand and checksum
+      lastTime = Date.now();               // Set current time for evaluation
     }
 
     /////////////////////////////////////////////////////////////////////////
     //  Request to open borg dialog
     /////////////////////////////////////////////////////////////////////////
     function onClickSendBorg() {
-	  console.log("Open borg dialog!");
-
-      let tmpData = "openBorgDl";
-      let checksum = 0;
-
-      // Make checksum data and convert it in complement
-      for(let n=0; n < 10; n++){
-        checksum += tmpData.charCodeAt(n);
+      let tmpData = "";
+      if(borgDialogOpen == 0){
+        // Open borg dialog
+        console.log("Open borg dialog!");
+        tmpData = "openBorgDl";
+        borgDialogOpen = 1;
+      }else{
+        // Close borg dialog
+        console.log("Close borg dialog!");
+        tmpData = "closBorgDl";
+        borgDialogOpen = 0;
       }
-      checksum = 65536-checksum;
 
-      // Convert checksum data in hex and fix degit and add it in last
-      let tmpStr = checksum.toString(16).padStart(4, '0').substr(-2);
-      tmpData = tmpData + tmpStr.substring(1, 2) + tmpStr.substring(0, 1);  // Command + 2nd + 1st degit checksum
-      console.log("tmpData= " + tmpData);
-
-      room.send(tmpData);        // Send comand and checksum
-      borgDialogOpen = 1;
+      room.send(addChecksum(tmpData));        // Send comand and checksum
     }
-
 
   });
 
   peer.on('error', console.error);
 })();
+
+
+/////////////////////////////////////////////////////////////////////////
+// Add check sum last from text
+/////////////////////////////////////////////////////////////////////////
+function addChecksum(tmpData){
+  let checksum = 0;
+
+  // Make checksum data and convert it in complement
+  for(let n=0; n < 10; n++){
+    checksum += tmpData.charCodeAt(n);
+  }
+  checksum = 65536-checksum;
+
+  // Convert checksum data in hex and fix degit and add it in last
+  let tmpStr = checksum.toString(16).padStart(4, '0').substr(-2);
+  tmpData = tmpData + tmpStr.substring(1, 2) + tmpStr.substring(0, 1);  // Command + 2nd + 1st degit checksum
+  console.log("tmpData= " + tmpData);
+
+  return tmpData;
+}
+
+
 
 
