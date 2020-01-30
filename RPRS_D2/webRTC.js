@@ -107,6 +107,9 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
           borgMeasurement = 1;   // Start borg measurement
         }
         if((bData & 0x70) != 0 && borgMeasurement==1){
+
+console.log("Stop borg measuremen now!");
+
           borgMeasurement = 0;   // Stop borg measurement
           borgDialogOpen = 0;
           sendBorg.style = "background:''";
@@ -285,7 +288,7 @@ function promptBorg(borgData){
 
 	// Set up title and message
 	myTitle = "Borg Scale";
-	myMessage = "回答[ " + borgScale + " ]\nOKですか？";
+	myMessage = "回答[ " + borgScale + " ]\nOK?";
 	myMessage = myMessage.replace(/\n/g, "<BR>");
 	document.getElementById("idAlertTitle").innerHTML = myTitle;
 	document.getElementById("idAlertMessage").innerHTML = myMessage;

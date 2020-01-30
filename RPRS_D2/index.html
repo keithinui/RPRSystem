@@ -10,7 +10,7 @@
   <body>
 
 <!-- Borg dialog  -->
-<div class="borgDialog" id="idAlert" style="background-color:#FFFFFF; visibility:hidden; position:absolute; border-width:thick; border-style:ridge; width:10%; box-shadow:10px 10px 10px rgba(0,0,0,0.5); border-radius:15px;">
+<div class="borgDialog" id="idAlert" style="background-color:#FFFFFF; visibility:hidden; position:absolute; border-width:thick; border-style:ridge; width:15%; box-shadow:10px 10px 10px rgba(0,0,0,0.5); border-radius:15px;">
 	<div style="float:right"><div onclick="checkBorgClose()"><img src="close03-001.png"></div></div>
 	<div id="idAlertTitle" style="background-color:#C0C0C0; text-align:center; padding:10px 0px; border-radius:5px 5px 0px 0px;"></div>
 	<div style="margin:0px 20px 0px 0px;">
@@ -35,7 +35,7 @@
 	</div>
 </div>
 
-
+<!-- Main Display -->
       <div class="container0">
           <!-- Video(Remote) -->
           <div class="remote-streams" id="js-remote-streams"></div>
@@ -53,6 +53,7 @@
                           <br>
                           <button id="js-send-trigger"     style="background:''; width:200px">Send Waveforms</button>
                           <button id="js-send-borgTrigger" style="background:''; width:100px">Borg</button>
+<input type="button" value="Test" onclick="promptBorg(3)" >
                           </br>
 
                           <div class="dataBattery">
