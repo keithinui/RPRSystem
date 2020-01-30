@@ -5,6 +5,7 @@ var waveLogData = [];  		// Log data of waveforms
 var lastTime;
 var borgIndex;
 var borgDialogOpen = 0;		// 0: dialog not open,  1: dialog open
+var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い", "弱い", "多少強い", "強い", "とても強い", "非常に強い"];
 
 (async function main() {
   const localVideo = document.getElementById('js-local-stream');
@@ -97,11 +98,12 @@ var borgDialogOpen = 0;		// 0: dialog not open,  1: dialog open
         textRR.innerHTML             = cData[1];
         statusSpo2.innerHTML         = cData[2];
         statusBatteryLavel.innerHTML = cData[3];
-        textBorg.innerHTML           = cData[4];
         
         // Borg dialog check
-        if((cData[4] & 0x30) != 0){
-            borgDialogOpen = 0;
+        if((cData[4] & 0x70) != 0){
+          borgDialogOpen = 0;
+          sendBorg.style = "background:'';
+          textBorg.innerHTML = promptBorg(cData[4]);
         }
 
         console.log("Data number=" + cData[26] + " Status=" + cData[28] + " Checksum=" + cData[29]);
@@ -222,11 +224,14 @@ var borgDialogOpen = 0;		// 0: dialog not open,  1: dialog open
         console.log("Open borg dialog!");
         tmpData = "openBorgDl";
         borgDialogOpen = 1;
+        sendBorg.style = "background:#00F00F;
+
       }else{
         // Close borg dialog
         console.log("Close borg dialog!");
         tmpData = "closBorgDl";
         borgDialogOpen = 0;
+        sendBorg.style = "background:'';
       }
 
       room.send(addChecksum(tmpData));        // Send comand and checksum
@@ -259,5 +264,23 @@ function addChecksum(tmpData){
 }
 
 
+/////////////////////////////////////////////////////////////////////////
+// Display confirmation dialog for borg recived
+/////////////////////////////////////////////////////////////////////////
+function promptBorg(borgData){
+  // Shape borgData and convert it to table data (8 over data is fixed to 0)
+  borgData = borgData & 0x0f;
+  let borgScale;
+  if(borgData<0 || borgData>8){ borgData = 0; }
+  borgScale = borgItems[borgData];
 
+  // Make message data and borg scale list
+  let msg = "Borg scale [" + borgScale + "] が選択されました。\nこの内容を修正するなら下記の番号から選択してください。\n\n";
+  for(let n=0; n<8; n++){
+    msg = mag + "  " + String(n+1) + ": " + borgItems[n] + "\n";
+  }
+
+  let result = prompt(msg, borgData);
+
+}
 
