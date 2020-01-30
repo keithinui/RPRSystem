@@ -4,7 +4,8 @@ var peer;
 var waveLogData = [];  		// Log data of waveforms 
 var lastTime;
 var borgIndex;
-var borgDialogOpen = 0;		// 0: dialog not open,  1: dialog open
+var borgDialogOpen = 0;		// 0: dialog not open,        1: dialog open
+var borgMeasurement = 0;	// 0: Stop borg measurement   1: Start borg measurement  
 var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い", "弱い", "多少強い", "強い", "とても強い", "非常に強い"];
 
 (async function main() {
@@ -98,12 +99,18 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
         textRR.innerHTML             = cData[1];
         statusSpo2.innerHTML         = cData[2];
         statusBatteryLavel.innerHTML = cData[3];
-        
-        // Borg dialog check
-        if((cData[4] & 0x70) != 0){
+
+
+        // Borg dialog check (close or open) and display prompt
+        if(borgDialogOpen==1 && bData==0x80){
+          borgMeasurement = 1;   // Start borg measurement
+        }
+        let bData = cData[4];
+        if((bData & 0x70) != 0 && borgMeasurement==1){
+          borgMeasurement = 0;   // Stop borg measurement
           borgDialogOpen = 0;
           sendBorg.style = "background:''";
-          textBorg.innerHTML = promptBorg(cData[4]);
+          textBorg.innerHTML = promptBorg(bData);
         }
 
         console.log("Data number=" + cData[26] + " Status=" + cData[28] + " Checksum=" + cData[29]);
@@ -230,8 +237,8 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
         // Close borg dialog
         console.log("Close borg dialog!");
         tmpData = "closBorgDl";
-        borgDialogOpen = 0;
-        sendBorg.style = "background:''";
+//        borgDialogOpen = 0;
+//        sendBorg.style = "background:''";
       }
 
       room.send(addChecksum(tmpData));        // Send comand and checksum
