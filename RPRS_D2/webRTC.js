@@ -285,22 +285,12 @@ function promptBorg(borgData){
 
 	// Set up title and message
 	myTitle = "Borg Scale";
-	myMessage = borgScale + "が選択されました。\n修正が必要なら選択をし、[OK]を押して下さい。";
+	myMessage = "[ " + borgScale + " ]が選択されました。\n修正が必要なら選択をし、[OK]を押して下さい。";
 	myMessage = myMessage.replace(/\n/g, "<BR>");
 	document.getElementById("idAlertTitle").innerHTML = myTitle;
 	document.getElementById("idAlertMessage").innerHTML = myMessage;
 
-	// Display center
-//	myXs = document.body.scrollLeft;
-//	myYs = document.body.scrollTop;
-//	myX = (window.innerWidth !== undefined) ? window.innerWidth : document.body.clientWidth;
-//	myY = (window.innerHeight !== undefined) ? window.innerHeight : document.body.clientHeight;
-//	document.getElementById("idAlert").style.left = myX / 2 - (myX*0.25/2) + myXs;
-//	document.getElementById("idAlert").style.top = myY / 2 - (myY*0.25/2) + myYs;
-
-//	document.getElementById("idAlert").style.left = "";
-//	document.getElementById("idAlert").style.top = "100px";
-
+	// Setup radio buttons
 	document.radioButtons.elements[borgData].checked = true;
 
 	// Display alert dialog
