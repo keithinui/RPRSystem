@@ -285,7 +285,7 @@ function promptBorg(borgData){
 
 	// Set up title and message
 	myTitle = "Borg Scale";
-	myMessage = "[ " + borgScale + " ]が選択されました。\n修正が必要なら選択をし、[OK]を押して下さい。";
+	myMessage = "[ " + borgScale + " ]が選択されました。\n修正が必要なら選択をし、\n[OK]を押して下さい。";
 	myMessage = myMessage.replace(/\n/g, "<BR>");
 	document.getElementById("idAlertTitle").innerHTML = myTitle;
 	document.getElementById("idAlertMessage").innerHTML = myMessage;
