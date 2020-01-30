@@ -266,6 +266,10 @@ function addChecksum(tmpData){
 
 /////////////////////////////////////////////////////////////////////////
 // Display confirmation dialog for borg recived
+//   Parameter(s):
+//     borgData: 0x00 to 0x08,   0x8x/0x4x/0x2x/0x1x
+//   Return value(s):
+//     borgItems
 /////////////////////////////////////////////////////////////////////////
 function promptBorg(borgData){
   // Shape borgData and convert it to table data (8 over data is fixed to 0)
@@ -277,10 +281,12 @@ function promptBorg(borgData){
   // Make message data and borg scale list
   let msg = "Borg scale [" + borgScale + "] が選択されました。\nこの内容を修正するなら下記の番号から選択してください。\n\n";
   for(let n=0; n<8; n++){
-    msg = mag + "  " + String(n+1) + ": " + borgItems[n] + "\n";
+    msg = msg + "  " + String(n) + ": " + borgItems[n] + "\n";
   }
 
   let result = prompt(msg, borgData);
-
+  if(result<0 || result>8){result=0;}
+  
+  return borgItems[result];
 }
 
