@@ -9,33 +9,34 @@
   </head>
   <body>
 
-<!-- Borg dialog  -->
-<div class="borgDialog" id="idAlert" style="background-color:#FFFFFF; visibility:hidden; position:absolute; border-width:thick; border-style:ridge; width:13%; box-shadow:10px 10px 10px rgba(0,0,0,0.5); border-radius:15px;">
-	<div style="float:right"><div onclick="checkBorgClose()"><img src="close03-001.png"></div></div>
-	<div id="idAlertTitle" style="background-color:#C0C0C0; text-align:center; padding:10px 0px; border-radius:5px 5px 0px 0px;"></div>
-	<div style="margin:0px 20px 0px 0px;">
-		<div style="display:table; float:left; width:100px; height:100px;"><p style="display:table-cell;vertical-align:middle;text-align:center;"><img   src="question_48x48.png"></p></div>
-		<div style="display:table; height:100px;"><div id="idAlertMessage" style="display:table-cell;vertical-align:middle;"></div></div>
-		<div style="margin:10px 0px 0px 20px;">
-			<form name="radioButtons">
-			<input type="radio" name="borg">未選択<br>
-			<input type="radio" name="borg">感じない<br>
-			<input type="radio" name="borg">非常に弱い<br>
-			<input type="radio" name="borg">やや弱い<br>
-			<input type="radio" name="borg">弱い<br>
-			<input type="radio" name="borg">多少強い<br>
-			<input type="radio" name="borg">強い<br>
-			<input type="radio" name="borg">とても強い<br>
-			<input type="radio" name="borg">非常に強い<br>
-			</form>
+  <div class="browserWindwos">
+	<!-- Borg dialog  -->
+	<div class="borgDialog" id="idAlert" style="background-color:#FFFFFF; visibility:hidden; position:absolute; border-width:thick; border-style:ridge; width:10%; box-shadow:10px 10px 10px rgba(0,0,0,0.5); border-radius:15px;">
+		<div style="float:right"><div onclick="checkBorgClose()"><img src="close03-001.png"></div></div>
+		<div id="idAlertTitle" style="background-color:#C0C0C0; text-align:center; padding:10px 0px; border-radius:5px 5px 0px 0px;"></div>
+		<div style="margin:0px 5px 0px 0px;">
+			<div style="display:table; float:left; width:70px; height:70px;"><p style="display:table-cell;vertical-align:middle;text-align:center;"><img   src="question_48x48.png"></p></div>
+			<div style="display:table; height:75px;"><div id="idAlertMessage" style="display:table-cell;vertical-align:middle;"></div></div>
+			<div style="margin:10px 0px 0px 20px;">
+				<form name="radioButtons">
+				<input type="radio" name="borg">未選択<br>
+				<input type="radio" name="borg">感じない<br>
+				<input type="radio" name="borg">非常に弱い<br>
+				<input type="radio" name="borg">やや弱い<br>
+				<input type="radio" name="borg">弱い<br>
+				<input type="radio" name="borg">多少強い<br>
+				<input type="radio" name="borg">強い<br>
+				<input type="radio" name="borg">とても強い<br>
+				<input type="radio" name="borg">非常に強い<br>
+				</form>
+			</div>
+		</div>
+		<div style="padding:10px 0px; text-align:center;">
+		<input style="border-radius:5px; font-size:large; width:50%;" type="button" value="O K" onclick="checkBorgClose()">
 		</div>
 	</div>
-	<div style="padding:10px 0px; text-align:center;">
-	<input style="border-radius:5px; font-size:large; width:50%;" type="button" value="O K" onclick="checkBorgClose()">
-	</div>
-</div>
 
-<!-- Main Display -->
+	<!-- Main Display -->
       <div class="container0">
           <!-- Video(Remote) -->
           <div class="remote-streams" id="js-remote-streams"></div>
@@ -53,7 +54,7 @@
                           <br>
                           <button id="js-send-trigger"     style="background:''; width:200px">Send Waveforms</button>
                           <button id="js-send-borgTrigger" style="background:''; width:100px">Borg</button>
-<input type="button" value="Test" onclick="promptBorg(3)" >
+<input type="button" value="Test" onclick="promptBorg(2)" >
                           </br>
 
                           <div class="dataBattery">
@@ -109,7 +110,7 @@
           </div>
       </div>
 
-
+  </div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="//cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>

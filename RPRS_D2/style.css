@@ -2,6 +2,10 @@
 body { margin: 0; height: 100%;}
 
 /* global styles */
+.browserWindwos {
+  position: relative;
+}
+
 video {
   background-color: #eee;
   width: 100%;
@@ -43,6 +47,8 @@ video {
 
 /*  100vw = window.right, 100vh = window.bottom  */
 .borgDialog {
+  font-size: 0.9vw;
+  font-family: "arial";
   left: 0px;
   top: 0px;
 }
