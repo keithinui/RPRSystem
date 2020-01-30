@@ -110,7 +110,7 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
           borgMeasurement = 0;   // Stop borg measurement
           borgDialogOpen = 0;
           sendBorg.style = "background:''";
-          textBorg.innerHTML = promptBorg(bData);
+          promptBorg(bData);
         }
 
         console.log("Data number=" + cData[26] + " Status=" + cData[28] + " Checksum=" + cData[29]);
@@ -275,25 +275,48 @@ function addChecksum(tmpData){
 // Display confirmation dialog for borg recived
 //   Parameter(s):
 //     borgData: 0x00 to 0x08,   0x8x/0x4x/0x2x/0x1x
-//   Return value(s):
-//     borgItems
 /////////////////////////////////////////////////////////////////////////
 function promptBorg(borgData){
-  // Shape borgData and convert it to table data (8 over data is fixed to 0)
-  borgData = borgData & 0x0f;
-  let borgScale;
-  if(borgData<0 || borgData>8){ borgData = 0; }
-  borgScale = borgItems[borgData];
+	// Shape borgData and convert it to table data (8 over data is fixed to 0)
+	borgData = borgData & 0x0f;
+	let borgScale;
+	if(borgData<0 || borgData>8){ borgData = 0; }
+	borgScale = borgItems[borgData];
 
-  // Make message data and borg scale list
-  let msg = "Borg scale [" + borgScale + "] が選択されました。\nこの内容を修正するなら下記の番号から選択してください。\n\n";
-  for(let n=0; n<8; n++){
-    msg = msg + "  " + String(n) + ": " + borgItems[n] + "\n";
-  }
+	// Set up title and message
+	myTitle = "Borg Scale";
+	myMessage = borgItems[borgData] + "が選択されました。\n修正が必要なら選択し[OK]を押して下さい。";
+	myMessage = myMessage.replace(/\n/g, "<BR>");
+	document.getElementById("idAlertTitle").innerHTML = myTitle;
+	document.getElementById("idAlertMessage").innerHTML = myMessage;
 
-  let result = prompt(msg, borgData);
-  if(result<0 || result>8){result=0;}
-  
-  return borgItems[result];
+	// Display center
+	myXs = document.body.scrollLeft;
+	myYs = document.body.scrollTop;
+	myX = (window.innerWidth !== undefined) ? window.innerWidth : document.body.clientWidth;
+	myY = (window.innerHeight !== undefined) ? window.innerHeight : document.body.clientHeight;
+	document.getElementById("idAlert").style.left = myX / 2 - (myX*0.25/2) + myXs;
+	document.getElementById("idAlert").style.top = myY / 2 - (myY*0.25/2) + myYs;
+
+	document.radioButtons.elements[items].checked = true;
+
+	// Display alert dialog
+	document.getElementById("idAlert").style.visibility = "visible";
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+// Close borg check dialog and display result
+////////////////////////////////////////////////////////////////////////////////////
+function checkBorgClose(){
+	// Hide alert fialog
+	document.getElementById("idAlert").style.visibility = "hidden";
+
+	let tmp = document.radioButtons.elements[1].checked;
+
+	let result;
+	for(let i=0; i<9; i++){
+		if(document.radioButtons.elements[i].checked){	result = i; }
+	}
+	textBorg.innerHTML = borgItems[result];
 }
 
