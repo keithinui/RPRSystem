@@ -102,7 +102,7 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
         // Borg dialog check
         if((cData[4] & 0x70) != 0){
           borgDialogOpen = 0;
-          sendBorg.style = "background:'';
+          sendBorg.style = "background:''";
           textBorg.innerHTML = promptBorg(cData[4]);
         }
 
