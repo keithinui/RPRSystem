@@ -285,7 +285,7 @@ function promptBorg(borgData){
 
 	// Set up title and message
 	myTitle = "Borg Scale";
-	myMessage = borgItems[borgData] + "が選択されました。\n修正が必要なら選択し[OK]を押して下さい。";
+	myMessage = borgScale + "が選択されました。\n修正が必要なら選択をし、[OK]を押して下さい。";
 	myMessage = myMessage.replace(/\n/g, "<BR>");
 	document.getElementById("idAlertTitle").innerHTML = myTitle;
 	document.getElementById("idAlertMessage").innerHTML = myMessage;
@@ -298,7 +298,7 @@ function promptBorg(borgData){
 	document.getElementById("idAlert").style.left = myX / 2 - (myX*0.25/2) + myXs;
 	document.getElementById("idAlert").style.top = myY / 2 - (myY*0.25/2) + myYs;
 
-	document.radioButtons.elements[items].checked = true;
+	document.radioButtons.elements[borgData].checked = true;
 
 	// Display alert dialog
 	document.getElementById("idAlert").style.visibility = "visible";
