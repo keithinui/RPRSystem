@@ -224,14 +224,14 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
         console.log("Open borg dialog!");
         tmpData = "openBorgDl";
         borgDialogOpen = 1;
-        sendBorg.style = "background:#00F00F;
+        sendBorg.style = "background:#00F00F";
 
       }else{
         // Close borg dialog
         console.log("Close borg dialog!");
         tmpData = "closBorgDl";
         borgDialogOpen = 0;
-        sendBorg.style = "background:'';
+        sendBorg.style = "background:''";
       }
 
       room.send(addChecksum(tmpData));        // Send comand and checksum
