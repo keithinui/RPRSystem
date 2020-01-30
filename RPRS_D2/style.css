@@ -43,7 +43,7 @@ video {
 
 /*  100vw = window.right, 100vh = window.bottom  */
 .borgDialog {
-  left: 30vw;
+  left: 0px;
   top: 0px;
 }
 
