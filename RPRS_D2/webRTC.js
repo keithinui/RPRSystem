@@ -102,10 +102,10 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
 
 
         // Borg dialog check (close or open) and display prompt
+        let bData = cData[4];
         if(borgDialogOpen==1 && bData==0x80){
           borgMeasurement = 1;   // Start borg measurement
         }
-        let bData = cData[4];
         if((bData & 0x70) != 0 && borgMeasurement==1){
           borgMeasurement = 0;   // Stop borg measurement
           borgDialogOpen = 0;
