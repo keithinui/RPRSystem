@@ -41,6 +41,11 @@ video {
   color: #0085d5;
 }
 
+/*  100vw = window.right, 100vh = window.bottom  */
+.borgDialog {
+  left: 62.5vw;
+  top: 20vh;
+}
 
 /************************************************************************
     container0

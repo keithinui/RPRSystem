@@ -291,12 +291,15 @@ function promptBorg(borgData){
 	document.getElementById("idAlertMessage").innerHTML = myMessage;
 
 	// Display center
-	myXs = document.body.scrollLeft;
-	myYs = document.body.scrollTop;
-	myX = (window.innerWidth !== undefined) ? window.innerWidth : document.body.clientWidth;
-	myY = (window.innerHeight !== undefined) ? window.innerHeight : document.body.clientHeight;
-	document.getElementById("idAlert").style.left = myX / 2 - (myX*0.25/2) + myXs;
-	document.getElementById("idAlert").style.top = myY / 2 - (myY*0.25/2) + myYs;
+//	myXs = document.body.scrollLeft;
+//	myYs = document.body.scrollTop;
+//	myX = (window.innerWidth !== undefined) ? window.innerWidth : document.body.clientWidth;
+//	myY = (window.innerHeight !== undefined) ? window.innerHeight : document.body.clientHeight;
+//	document.getElementById("idAlert").style.left = myX / 2 - (myX*0.25/2) + myXs;
+//	document.getElementById("idAlert").style.top = myY / 2 - (myY*0.25/2) + myYs;
+
+//	document.getElementById("idAlert").style.left = "";
+//	document.getElementById("idAlert").style.top = "100px";
 
 	document.radioButtons.elements[borgData].checked = true;
 
