@@ -37,8 +37,11 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
 
   const localStream = await navigator.mediaDevices
     .getUserMedia({
-      audio: true,
-      video: true,
+      audio: {
+        echoCancellation: true,
+        noiseSuppression: true
+      },
+      video: true
     })
     .catch(console.error);
 
@@ -107,9 +110,6 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
           borgMeasurement = 1;   // Start borg measurement
         }
         if((bData & 0x70) != 0 && borgMeasurement==1){
-
-console.log("Stop borg measuremen now!");
-
           borgMeasurement = 0;   // Stop borg measurement
           borgDialogOpen = 0;
           sendBorg.style = "background:''";
@@ -240,8 +240,6 @@ console.log("Stop borg measuremen now!");
         // Close borg dialog
         console.log("Close borg dialog!");
         tmpData = "closBorgDl";
-//        borgDialogOpen = 0;
-//        sendBorg.style = "background:''";
       }
 
       room.send(addChecksum(tmpData));        // Send comand and checksum
@@ -285,6 +283,7 @@ function promptBorg(borgData){
 	let borgScale;
 	if(borgData<0 || borgData>8){ borgData = 0; }
 	borgScale = borgItems[borgData];
+	borgIndex = borgData;
 
 	// Set up title and message
 	myTitle = "Borg Scale";
@@ -303,16 +302,21 @@ function promptBorg(borgData){
 ////////////////////////////////////////////////////////////////////////////////////
 // Close borg check dialog and display result
 ////////////////////////////////////////////////////////////////////////////////////
-function checkBorgClose(){
+function checkBorgClose(operation){
 	// Hide alert fialog
 	document.getElementById("idAlert").style.visibility = "hidden";
 
-	let tmp = document.radioButtons.elements[1].checked;
-
-	let result;
-	for(let i=0; i<9; i++){
-		if(document.radioButtons.elements[i].checked){	result = i; }
+	if(operation == 1){
+		let result;
+		for(let i=0; i<9; i++){
+			if(document.radioButtons.elements[i].checked){	result = i; }
+		}
+		borgIndex = result;
 	}
-	textBorg.innerHTML = borgItems[result];
+
+	// Display final result content
+	textBorg.innerHTML = borgItems[borgIndex];
 }
+
+
 
