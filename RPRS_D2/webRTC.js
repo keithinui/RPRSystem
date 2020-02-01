@@ -114,7 +114,8 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
         if(borgDialogOpen==1){
             if((bData & 0x0f) !=0){promptBorg("状況:\n[回答選択中]", bData);}
             if((bData & 0x10) !=0){promptBorg("状況:\n[回答終了]", bData);}
-            if((bData & 0x40) !=0){promptBorg("状況:\n[時間経過]", bData);}
+            if((bData & 0x20) !=0){promptBorg("状況:\n[強制終了]", bData);}
+            if((bData & 0x40) !=0){promptBorg("状況:\n[時間終了]", bData);}
         }
 
         console.log("Data number=" + cData[26] + " Status=" + cData[28] + " Checksum=" + cData[29]);
@@ -284,7 +285,7 @@ function promptBorg(myMessage, borgData){
 
 	// Set up title and message
 	myTitle = "Borg Scale";
-//	myMessage = myMessage.replace(/\n/g, "<BR>");
+	myMessage = myMessage.replace(/\n/g, "<BR>");
 	document.getElementById("idAlertTitle").innerHTML = myTitle;
 	document.getElementById("idAlertMessage").innerHTML = myMessage;
 
@@ -313,10 +314,11 @@ function checkBorgClose(operation){
 	// Display final result content
 	textBorg.innerHTML = borgItems[borgIndex];
 
+        room.send(addChecksum("closBorgDl"));        // Send comand and checksum
+
         borgDialogOpen = 0;
         let sendBorg = document.getElementById('js-send-borgTrigger');
         sendBorg.style = "background:''";
-
 }
 
 
