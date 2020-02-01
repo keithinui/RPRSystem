@@ -107,6 +107,7 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
         // Borg dialog check (close or open) and display prompt
         let bData = cData[4];
         if(bData==0x80){
+            promptBorg("状況:\n[回答選択中]", bData);
             borgDialogOpen = 1;
             sendBorg.style = "background:#00F00F";
         }
