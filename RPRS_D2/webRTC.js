@@ -106,11 +106,11 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
 
         // Borg dialog check (close or open) and display prompt
         let bData = cData[4];
-        if(borgDialogOpen==1 && bData==0x80){
-          borgMeasurement = 1;   // Start borg measurement
+        if(bData==0x80){
+            borgDialogOpen = 1;
+            sendBorg.style = "background:#00F00F";
         }
-
-        if(borgMeasurement==1){
+        if(borgDialogOpen==1){
             if((bData & 0x0f) !=0){promptBorg("状況:\n[回答選択中]", bData);}
             if((bData & 0x10) !=0){promptBorg("状況:\n[回答終了]", bData);}
             if((bData & 0x40) !=0){promptBorg("状況:\n[時間経過]", bData);}
@@ -231,14 +231,9 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
       let tmpData = "";
       if(borgDialogOpen == 0){
         // Open borg dialog
-        console.log("Open borg dialog!");
         tmpData = "openBorgDl";
-        borgDialogOpen = 1;
-        sendBorg.style = "background:#00F00F";
-        promptBorg("状況:\n[回答選択中]", 0);
       }else{
         // Close borg dialog
-        console.log("Close borg dialog!");
         tmpData = "closBorgDl";
       }
 
@@ -317,8 +312,8 @@ function checkBorgClose(operation){
 	// Display final result content
 	textBorg.innerHTML = borgItems[borgIndex];
 
-        borgMeasurement = 0;   // Stop borg measurement
         borgDialogOpen = 0;
+        let sendBorg = document.getElementById('js-send-borgTrigger');
         sendBorg.style = "background:''";
 
 }
