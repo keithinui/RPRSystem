@@ -113,7 +113,7 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
         if(borgMeasurement==1){
             if((bData & 0x0f) !=0){promptBorg("状況:\n[回答選択中]", bData);}
             if((bData & 0x10) !=0){promptBorg("状況:\n[回答終了]", bData);}
-            if((bData & 0x40) !=0){promptBorg("状況:\n[時間経過]" bData);}
+            if((bData & 0x40) !=0){promptBorg("状況:\n[時間経過]", bData);}
         }
 
         console.log("Data number=" + cData[26] + " Status=" + cData[28] + " Checksum=" + cData[29]);
