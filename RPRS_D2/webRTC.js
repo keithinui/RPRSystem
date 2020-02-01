@@ -284,7 +284,7 @@ function promptBorg(myMessage, borgData){
 
 	// Set up title and message
 	myTitle = "Borg Scale";
-	myMessage = myMessage.replace(/\n/g, "<BR>");
+//	myMessage = myMessage.replace(/\n/g, "<BR>");
 	document.getElementById("idAlertTitle").innerHTML = myTitle;
 	document.getElementById("idAlertMessage").innerHTML = myMessage;
 
