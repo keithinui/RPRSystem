@@ -118,7 +118,7 @@ var borgItems = ["未選択", "10 非常にきつい", "9", "8", "7   かなり�
             if((bData & 0x40) !=0){promptBorg("状況:\n[時間終了]", bData);}
         }
 
-        console.log("Data number=" + cData[26] + " Status=" + cData[28] + " Checksum=" + cData[29]);
+        console.log("Borg="+ cData[4] + " Data number=" + cData[26] + " Status=" + cData[28] + " Checksum=" + cData[29]);
 
       }else{
         // Waveform data (20bytes data )
