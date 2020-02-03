@@ -272,14 +272,14 @@ function addChecksum(tmpData){
 /////////////////////////////////////////////////////////////////////////
 // Display confirmation dialog for borg recived
 //   Parameter(s):
-//     borgData: 0x00 to 0x08,   0x8x/0x4x/0x2x/0x1x
+//     borgData: 0x00 to 0x0c,   0x8x/0x4x/0x2x/0x1x
 /////////////////////////////////////////////////////////////////////////
 function promptBorg(myMessage, borgData){
 
-	// Shape borgData and convert it to table data (8 over data is fixed to 0)
+	// Shape borgData and convert it to table data (12 over data is fixed to 0)
 	borgData = borgData & 0x0f;
 	let borgScale;
-	if(borgData<0 || borgData>8){ borgData = 0; }
+	if(borgData<0 || borgData>12){ borgData = 0; }
 	borgScale = borgItems[borgData];
 	borgIndex = borgData;
 
@@ -305,7 +305,7 @@ function checkBorgClose(operation){
 
 	if(operation == 1){
 		let result;
-		for(let i=0; i<12; i++){
+		for(let i=0; i<13; i++){
 			if(document.radioButtons.elements[i].checked){	result = i; }
 		}
 		borgIndex = result;
