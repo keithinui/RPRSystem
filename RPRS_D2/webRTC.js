@@ -106,17 +106,19 @@ var borgItems = ["10 非常にきつい", "9", "8", "7   かなりきつい", "6
 
         // Borg dialog check (close or open) and display prompt
         let bData = cData[4];
-        if(borgDialogOpen==1 && bData==0x80){
-          borgMeasurement = 1;   // Start borg measurement
+        if(bData==0x80){
+            promptBorg("状況:\n[回答選択中]", bData);
+            borgDialogOpen = 1;
+            sendBorg.style = "background:#00F00F";
         }
-        if((bData & 0x70) != 0 && borgMeasurement==1){
-          borgMeasurement = 0;   // Stop borg measurement
-          borgDialogOpen = 0;
-          sendBorg.style = "background:''";
-          promptBorg(bData);
+        if(borgDialogOpen==1){
+            if((bData & 0x0f) !=0){promptBorg("状況:\n[回答選択中]", bData);}
+            if((bData & 0x10) !=0){promptBorg("状況:\n[回答終了]", bData);}
+            if((bData & 0x20) !=0){promptBorg("状況:\n[強制終了]", bData);}
+            if((bData & 0x40) !=0){promptBorg("状況:\n[時間終了]", bData);}
         }
 
-        console.log("Borg="+ cData[4] +" Data number=" + cData[26] + " Status=" + cData[28] + " Checksum=" + cData[29]);
+        console.log("Data number=" + cData[26] + " Status=" + cData[28] + " Checksum=" + cData[29]);
 
       }else{
         // Waveform data (20bytes data )
@@ -231,14 +233,9 @@ var borgItems = ["10 非常にきつい", "9", "8", "7   かなりきつい", "6
       let tmpData = "";
       if(borgDialogOpen == 0){
         // Open borg dialog
-        console.log("Open borg dialog!");
         tmpData = "openBorgDl";
-        borgDialogOpen = 1;
-        sendBorg.style = "background:#00F00F";
-
       }else{
         // Close borg dialog
-        console.log("Close borg dialog!");
         tmpData = "closBorgDl";
       }
 
@@ -277,7 +274,8 @@ function addChecksum(tmpData){
 //   Parameter(s):
 //     borgData: 0x00 to 0x08,   0x8x/0x4x/0x2x/0x1x
 /////////////////////////////////////////////////////////////////////////
-function promptBorg(borgData){
+function promptBorg(myMessage, borgData){
+
 	// Shape borgData and convert it to table data (8 over data is fixed to 0)
 	borgData = borgData & 0x0f;
 	let borgScale;
@@ -287,7 +285,6 @@ function promptBorg(borgData){
 
 	// Set up title and message
 	myTitle = "Borg Scale";
-	myMessage = "回答:\n[" + borgScale + "]\nOK?";
 	myMessage = myMessage.replace(/\n/g, "<BR>");
 	document.getElementById("idAlertTitle").innerHTML = myTitle;
 	document.getElementById("idAlertMessage").innerHTML = myMessage;
@@ -316,7 +313,10 @@ function checkBorgClose(operation){
 
 	// Display final result content
 	textBorg.innerHTML = borgItems[borgIndex];
+
+        room.send(addChecksum("closBorgDl"));        // Send comand and checksum
+
+        borgDialogOpen = 0;
+        let sendBorg = document.getElementById('js-send-borgTrigger');
+        sendBorg.style = "background:''";
 }
-
-
-
