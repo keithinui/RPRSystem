@@ -116,7 +116,7 @@ var borgItems = ["10 非常にきつい", "9", "8", "7   かなりきつい", "6
           promptBorg(bData);
         }
 
-        console.log("Data number=" + cData[26] + " Status=" + cData[28] + " Checksum=" + cData[29]);
+        console.log("Borg="+ cData[4] +" Data number=" + cData[26] + " Status=" + cData[28] + " Checksum=" + cData[29]);
 
       }else{
         // Waveform data (20bytes data )
