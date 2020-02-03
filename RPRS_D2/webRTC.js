@@ -6,7 +6,7 @@ var lastTime;
 var borgIndex;
 var borgDialogOpen = 0;		// 0: dialog not open,        1: dialog open
 var borgMeasurement = 0;	// 0: Stop borg measurement   1: Start borg measurement  
-var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い", "弱い", "多少強い", "強い", "とても強い", "非常に強い"];
+var borgItems = ["10 非常にきつい", "9", "8", "7   かなりきつい", "6", "5    きつい", "4    ややきつい", "3    ちょうどよい", "2    弱い", "1    かなり弱い", "0.5 非常に弱い", "0    何も感じない"];
 
 (async function main() {
   const localVideo = document.getElementById('js-local-stream');
@@ -106,16 +106,14 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
 
         // Borg dialog check (close or open) and display prompt
         let bData = cData[4];
-        if(bData==0x80){
-            promptBorg("状況:\n[回答選択中]", bData);
-            borgDialogOpen = 1;
-            sendBorg.style = "background:#00F00F";
+        if(borgDialogOpen==1 && bData==0x80){
+          borgMeasurement = 1;   // Start borg measurement
         }
-        if(borgDialogOpen==1){
-            if((bData & 0x0f) !=0){promptBorg("状況:\n[回答選択中]", bData);}
-            if((bData & 0x10) !=0){promptBorg("状況:\n[回答終了]", bData);}
-            if((bData & 0x20) !=0){promptBorg("状況:\n[強制終了]", bData);}
-            if((bData & 0x40) !=0){promptBorg("状況:\n[時間終了]", bData);}
+        if((bData & 0x70) != 0 && borgMeasurement==1){
+          borgMeasurement = 0;   // Stop borg measurement
+          borgDialogOpen = 0;
+          sendBorg.style = "background:''";
+          promptBorg(bData);
         }
 
         console.log("Data number=" + cData[26] + " Status=" + cData[28] + " Checksum=" + cData[29]);
@@ -233,9 +231,14 @@ var borgItems = ["未選択", "感じない", "非常に弱い", "やや弱い",
       let tmpData = "";
       if(borgDialogOpen == 0){
         // Open borg dialog
+        console.log("Open borg dialog!");
         tmpData = "openBorgDl";
+        borgDialogOpen = 1;
+        sendBorg.style = "background:#00F00F";
+
       }else{
         // Close borg dialog
+        console.log("Close borg dialog!");
         tmpData = "closBorgDl";
       }
 
@@ -274,8 +277,7 @@ function addChecksum(tmpData){
 //   Parameter(s):
 //     borgData: 0x00 to 0x08,   0x8x/0x4x/0x2x/0x1x
 /////////////////////////////////////////////////////////////////////////
-function promptBorg(myMessage, borgData){
-
+function promptBorg(borgData){
 	// Shape borgData and convert it to table data (8 over data is fixed to 0)
 	borgData = borgData & 0x0f;
 	let borgScale;
@@ -285,6 +287,7 @@ function promptBorg(myMessage, borgData){
 
 	// Set up title and message
 	myTitle = "Borg Scale";
+	myMessage = "回答:\n[" + borgScale + "]\nOK?";
 	myMessage = myMessage.replace(/\n/g, "<BR>");
 	document.getElementById("idAlertTitle").innerHTML = myTitle;
 	document.getElementById("idAlertMessage").innerHTML = myMessage;
@@ -305,7 +308,7 @@ function checkBorgClose(operation){
 
 	if(operation == 1){
 		let result;
-		for(let i=0; i<9; i++){
+		for(let i=0; i<12; i++){
 			if(document.radioButtons.elements[i].checked){	result = i; }
 		}
 		borgIndex = result;
@@ -313,12 +316,6 @@ function checkBorgClose(operation){
 
 	// Display final result content
 	textBorg.innerHTML = borgItems[borgIndex];
-
-        room.send(addChecksum("closBorgDl"));        // Send comand and checksum
-
-        borgDialogOpen = 0;
-        let sendBorg = document.getElementById('js-send-borgTrigger');
-        sendBorg.style = "background:''";
 }
 
 
