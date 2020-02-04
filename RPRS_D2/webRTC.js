@@ -6,7 +6,7 @@ var lastTime;
 var borgIndex;
 var borgDialogOpen = 0;		// 0: dialog not open,        1: dialog open
 var borgMeasurement = 0;	// 0: Stop borg measurement   1: Start borg measurement  
-var borgItems = ["未選択", "10 非常にきつい", "9", "8", "7   かなりきつい", "6", "5    きつい", "4    ややきつい", "3    ちょうどよい", "2    弱い", "1    かなり弱い", "0.5 非常に弱い", "0    何も感じない"];
+var borgItems = ["未選択", "10 非常に強い", "9", "8", "7   とても強い", "6", "5    強い", "4    多少強い", "3", "2    弱い", "1    やや弱い", "0.5 非常に弱い", "0    感じない"];
 
 (async function main() {
   const localVideo = document.getElementById('js-local-stream');
