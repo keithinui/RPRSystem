@@ -59,11 +59,17 @@ window.onload = function () {
 
   //-------------------------------------------------------------------
   // Make an event to cofirm closong window
-  window.addEventListener('beforeunload', function(e){
-    e.returnValue =  'Are you sure to close this application?';
-  }, false);
-
+  window.addEventListener('beforeunload', beforeUnloadEvent, false);
 
 }
 
+
+//***************************************************************************
+// beforeUnloadEvent
+//***************************************************************************
+var beforeUnloadEvent = function(e){
+	let confirmMessage =  'Are you sure to close this application?';
+	e.returnValue = confirmMessage;
+	return confirmMessage;
+}
 
