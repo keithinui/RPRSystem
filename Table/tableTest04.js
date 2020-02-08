@@ -118,6 +118,9 @@ function exitWindows(){
 
 	let result = confirm("Are you sure to exit RPR System?");
  	if(result) {
+		// Remove comfirmation dialog event
+		window.removeEventListener('beforeunload', beforeUnloadEvent, false);
+		// Back to previous page
 		location.href = "../Password/index.html";
 	}else{
 		return;
@@ -148,13 +151,16 @@ function startRehabilitation(){
 	console.log ("Event: startRehabilitation");
 	// Data selecited ?
 	if(selectionNumber==0){
-		alert("No data lelected. \nPlease select before strting rehabilitation.");
+		alert("No data selected. \nPlease select before strting rehabilitation.");
 		return;
 	}
 
 
 	let result = confirm("Are you sure to start rehabilitation with the patinet?");
- 	if(result) {
+	if(result) {
+		// Remove comfirmation dialog event
+		window.removeEventListener('beforeunload', beforeUnloadEvent, false);
+		// Jump to next page
 		location.href = "../RPRS_D2/index.html";
 	}else{
 		return;
@@ -228,11 +234,20 @@ window.onload = function () {
 
 
 	//***************************************************************************
-	// Make confamation dialog
-	window.addEventListener('beforeunload', function(e){
-		e.returnValue =  'Are you sure to close this application?';
-	}, false);
+	// Make confamation dialog event
+	window.addEventListener('beforeunload', beforeUnloadEvent, false);
 
 }
+
+//***************************************************************************
+// beforeUnloadEvent
+//***************************************************************************
+var beforeUnloadEvent = function(e){
+	let confirmMessage =  'Are you sure to close this application?';
+	e.returnValue = confirmMessage;
+	return confirmMessage;
+}
+
+
 
 
