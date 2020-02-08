@@ -163,9 +163,11 @@ function startRehabilitation(){
 
 
 //***************************************************************************
-// Make table for init
+// onload event
 //***************************************************************************
 window.onload = function () {
+	//***************************************************************************
+	// Make table for init 
 	let cp1 = 0;
 	let tObj = document.getElementById("tableK");
 
@@ -223,6 +225,14 @@ window.onload = function () {
 	// Init data slection and room number
 	selectionNumber = 2;
 	currentNumber = 2;
+
+
+	//***************************************************************************
+	// Make confamation dialog
+	window.addEventListener('beforeunload', function(e){
+		e.returnValue =  'Are you sure to close this application?';
+	}, false);
+
 }
 
 
