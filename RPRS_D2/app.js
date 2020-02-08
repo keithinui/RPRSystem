@@ -30,11 +30,13 @@ function onOneSecRihaTimer() {
 //  Initial setup
 // ********************************************************************
 window.onload = function () {
+  //-------------------------------------------------------------------
   // Make position offset for each waveform
   for (var k = 0; k < ch; ++k) {
     Voffset[k] = (k + 1) * (oy / (ch + 1));
   }
 
+  //-------------------------------------------------------------------
   // Make canvas and get its size
   cvs = document.getElementById("waveformCanvas");
   m_workDC = cvs.getContext('2d');
@@ -49,9 +51,19 @@ window.onload = function () {
 
   WaveStep = (ox - stdW) / Sweep;	            // Number of count up step per sample
 
+  //-------------------------------------------------------------------
   // Hide Leave button
   leaveTrigger.style = "background:#00F00F";
   ltDisplayOriginal  = leaveTrigger.style.display;
   leaveTrigger.style.display = "none";
 
+  //-------------------------------------------------------------------
+  // Make an event to cofirm closong window
+  window.addEventListener('beforeunload', function(e){
+    e.returnValue =  'Are you sure to close this application?';
+  }, false);
+
+
 }
+
+
