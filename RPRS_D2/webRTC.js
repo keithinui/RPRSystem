@@ -320,3 +320,27 @@ function checkBorgClose(operation){
         let sendBorg = document.getElementById('js-send-borgTrigger');
         sendBorg.style = "background:''";
 }
+
+
+/////////////////////////////////////////////////////////////////////////
+//
+/////////////////////////////////////////////////////////////////////////
+var video = document.getElementById('js-remote-streams');
+var capture = document.getElementById('capture');
+var canvas = document.getElementById('draw');
+
+video.onloadedmetadata = function(){ //動画が読み込まれてから処理を開始
+    let canvasSizeX = 100; //canvasの幅
+    let canvasSizeY = (canvasSizeX*video.videoHeight)/video.videoWidth; //canvasの高さ
+
+    //capture
+    capture.addEventListener('click',function(){
+        console.log('pushed capture');
+        canvas.getContext('2d').drawImage(video, 0, 0, canvasSizeX, canvasSizeY); //videoタグの「今」の状態をcanvasに描写
+        console.log(canvas.toDataURL());   //base64でデータ化
+    });
+}
+
+
+
+
