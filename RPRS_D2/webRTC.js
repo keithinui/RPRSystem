@@ -323,14 +323,18 @@ function checkBorgClose(operation){
 
 
 /////////////////////////////////////////////////////////////////////////
+// Captuer images
+//
+// WebRTC の方は getDisplayMedia で取り込むような感じかも。要調査
 //
 /////////////////////////////////////////////////////////////////////////
-var video = document.getElementById('js-remote-streams');
+//var video = document.getElementById('js-remote-streams');
+var video = document.getElementById('js-local-stream');    // if you need image of rocal stream
 var capture = document.getElementById('capture');
 var canvas = document.getElementById('draw');
 
 video.onloadedmetadata = function(){ //動画が読み込まれてから処理を開始
-    let canvasSizeX = 100; //canvasの幅
+    let canvasSizeX = 200; //canvasの幅
     let canvasSizeY = (canvasSizeX*video.videoHeight)/video.videoWidth; //canvasの高さ
 
     //capture
