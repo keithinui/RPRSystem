@@ -60,13 +60,13 @@ document.addEventListener ('click', e => {
 function addRowData(){
 
 	let tObj = document.getElementById("tableK");
-	let idy = 2;											// Number of first row
+	let idy = 2;											// Number of first(=2) row
 //	let idy = tObj.rows["length"];							// Number of last row
 	let insObj = tObj.insertRow(idy);						// Insert row
 
 	let c = document.createElement("th"); insObj.appendChild(c);
-	currentNumber++;
 	c.innerHTML = String(currentNumber).padStart(3, '0');
+	currentNumber++;
 
 	for(let n=2; n<=tObj.rows["length"]-1; n++){
 		tObj.rows[n].style.background = defaultColr;		// Reset all rows color in white
