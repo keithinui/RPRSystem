@@ -7,6 +7,7 @@ var borgIndex;
 var borgDialogOpen = 0;		// 0: dialog not open,        1: dialog open
 var borgMeasurement = 0;	// 0: Stop borg measurement   1: Start borg measurement  
 var borgItems = ["未選択", "10 非常に強い", "9", "8", "7   とても強い", "6", "5    強い", "4    多少強い", "3", "2    弱い", "1    やや弱い", "0.5 非常に弱い", "0    感じない"];
+var volumeLevel;			// Volume level of phone side (patient side)
 
 (async function main() {
   const localVideo = document.getElementById('js-local-stream');
@@ -16,6 +17,8 @@ var borgItems = ["未選択", "10 非常に強い", "9", "8", "7   とても強�
   const localText = document.getElementById('js-local-text');
   const sendTrigger = document.getElementById('js-send-trigger');
   const sendBorg = document.getElementById('js-send-borgTrigger');
+  const volumeUp = document.getElementById('js-volume-up');
+  const volumeDown = document.getElementById('js-volume-down');
   const messages = document.getElementById('js-messages');
   const meta = document.getElementById('js-meta');
   const sdkSrc = document.querySelector('script[src*=skyway]');
@@ -102,7 +105,7 @@ var borgItems = ["未選択", "10 非常に強い", "9", "8", "7   とても強�
         textRR.innerHTML             = cData[1];
         statusSpo2.innerHTML         = cData[2];
         statusBatteryLavel.innerHTML = cData[3];
-
+        statusVolumeLavel.innerHTML  = cData[5];
 
         // Borg dialog check (close or open) and display prompt
         let bData = cData[4];
@@ -162,6 +165,8 @@ var borgItems = ["未選択", "10 非常に強い", "9", "8", "7   とても強�
     room.once('close', () => {
       sendTrigger.removeEventListener('click', onClickSend);
       sendBorg.removeEventListener('click', onClickSendBorg);
+      volumeUp.removeEventListener('click', onClickVolumeUp);
+      volumeDown.removeEventListener('click', onClickVolumeDown);
       messages.textContent += '== You left ===\n';
       leaveTrigger.style.display = "none";
       joinTrigger.style.display = jtDisplayOriginal;
@@ -178,6 +183,8 @@ var borgItems = ["未選択", "10 非常に強い", "9", "8", "7   とても強�
 
     sendTrigger.addEventListener('click', onClickSend);
     sendBorg.addEventListener('click', onClickSendBorg);
+    volumeUp.addEventListener('click', onClickVolumeUp);
+    volumeDown.addEventListener('click', onClicVolumeDown);
     leaveTrigger.addEventListener('click', () => room.close(), { once: true });
 
 
@@ -241,6 +248,17 @@ var borgItems = ["未選択", "10 非常に強い", "9", "8", "7   とても強�
 
       room.send(addChecksum(tmpData));        // Send comand and checksum
     }
+
+    /////////////////////////////////////////////////////////////////////////
+    //  Request to control volume level
+    /////////////////////////////////////////////////////////////////////////
+    function onClickVolumeUp() {
+      room.send(addChecksum("volumeUp__"));	  // Send comand and checksum
+    }
+    function onClickVolumeDown() {
+      room.send(addChecksum("volumeDown"));	  // Send comand and checksum
+    }
+
 
   });
 
