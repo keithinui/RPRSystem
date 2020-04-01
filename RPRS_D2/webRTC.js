@@ -105,7 +105,6 @@ var volumeLevel;			// Volume level of phone side (patient side)
         textRR.innerHTML             = cData[1];
         statusSpo2.innerHTML         = cData[2];
         statusBatteryLavel.innerHTML = cData[3];
-        statusVolumeLavel.innerHTML  = cData[5];
 
         // Borg dialog check (close or open) and display prompt
         let bData = cData[4];
@@ -122,6 +121,9 @@ var volumeLevel;			// Volume level of phone side (patient side)
         }
 
         console.log("Borg="+ cData[4] + " Data number=" + cData[26] + " Status=" + cData[28] + " Checksum=" + cData[29]);
+
+		// Volume level
+        statusVolumeLavel.innerHTML  = cData[6];
 
       }else{
         // Waveform data (20bytes data )
@@ -184,7 +186,7 @@ var volumeLevel;			// Volume level of phone side (patient side)
     sendTrigger.addEventListener('click', onClickSend);
     sendBorg.addEventListener('click', onClickSendBorg);
     volumeUp.addEventListener('click', onClickVolumeUp);
-    volumeDown.addEventListener('click', onClicVolumeDown);
+    volumeDown.addEventListener('click', onClickVolumeDown);
     leaveTrigger.addEventListener('click', () => room.close(), { once: true });
 
 
