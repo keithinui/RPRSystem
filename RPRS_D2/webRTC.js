@@ -6,7 +6,8 @@ var lastTime;
 var borgIndex;
 var borgDialogOpen = 0;		// 0: dialog not open,        1: dialog open
 var borgMeasurement = 0;	// 0: Stop borg measurement   1: Start borg measurement  
-var borgItems = ["未選択", "10 非常に強い", "9", "8", "7   とても強い", "6", "5    強い", "4    多少強い", "3", "2    弱い", "1    やや弱い", "0.5 非常に弱い", "0    感じない"];
+// var borgItems = ["未選択", "10 非常に強い", "9", "8", "7   とても強い", "6", "5    強い", "4    多少強い", "3", "2    弱い", "1    やや弱い", "0.5 非常に弱い", "0    感じない"];
+var borgItems = ["未選択", "0    感じない", "0.5 非常に弱い", "1    やや弱い", "2    弱い", "3", "4    多少強い", "5    強い", "6", "7   とても強い", "8", "9", "10 非常に強い"];
 var volumeLevel;			// Volume level of phone side (patient side)
 
 (async function main() {
