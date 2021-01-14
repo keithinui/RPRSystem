@@ -3,6 +3,7 @@ body { margin: 0; height: 100%;}
 
 /* global styles */
 .browserWindwos {
+  overflow: hidden;
   position: relative;
 }
 
@@ -76,7 +77,6 @@ video {
 *************************************************************************/
 /***************************************/
 .container0 {
-  overflow: hidden;
   display: flex;
   flex-direction: row;
 }
