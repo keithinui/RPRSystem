@@ -83,7 +83,7 @@ video {
 /***************************************/
 .remote-streams {
   width: 40%;
-  height: 90vh;
+  height: 100vh;
   background-color: silver;
   align-items: center;
   padding: 5px;
