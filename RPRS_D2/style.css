@@ -76,6 +76,7 @@ video {
 *************************************************************************/
 /***************************************/
 .container0 {
+  overflow: hidden;
   display: flex;
   flex-direction: row;
 }
@@ -93,7 +94,6 @@ video {
 /* ----------------------------------- */
 .container200{
   width: 60%;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
