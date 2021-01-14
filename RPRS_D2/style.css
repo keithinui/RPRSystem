@@ -9,6 +9,7 @@ body { margin: 0; height: 100%;}
 video {
   background-color: #eee;
   width: 100%;
+  overflow: scroll;
 }
 
 .heading {
@@ -87,8 +88,6 @@ video {
   background-color: silver;
   align-items: center;
   padding: 5px;
-  object-fit: none;
-  object-position: : left 50%;
 }
 
 /* ----------------------------------- */
