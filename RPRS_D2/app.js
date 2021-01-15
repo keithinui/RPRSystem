@@ -2,7 +2,7 @@
 const textRR = document.getElementById('textRR');
 const textBorg = document.getElementById('textBorg');
 const leaveTrigger = document.getElementById('js-leave-trigger');
-const canvas = document.getElementById("container100");
+const remote = document.getElementById("container100");
 const picture = document.getElementById("remote-streams");
 
 
@@ -66,8 +66,8 @@ window.onload = function () {
 
   //-------------------------------------------------------------------
   // Display picture in center
-  canvas.scrollTop = (picture.height - canvas.clientHeight)/2;
-  canvas.scrollLeft = (picture.width - canvas.clientWidth)/2;
+  remote.scrollTop = (picture.height - remote.clientHeight)/2;
+  remote.scrollLeft = (picture.width - remote.clientWidth)/2;
 
 
 }
