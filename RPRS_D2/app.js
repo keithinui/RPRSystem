@@ -69,7 +69,6 @@ window.onload = function () {
   container.scrollTop = 50; //(picture.height - container.clientHeight)/2;
   container.scrollLeft = 0; //(picture.width - container.clientWidth)/2;
 
-
 }
 
 
@@ -80,5 +79,15 @@ var beforeUnloadEvent = function(e){
 	let confirmMessage =  'Are you sure to close this application?';
 	e.returnValue = confirmMessage;
 	return confirmMessage;
+}
+
+
+//***************************************************************************
+// Pointer events
+//***************************************************************************
+container.onmousedown = function(e) {
+
+    console.log("onmousedown event!!");
+
 }
 
