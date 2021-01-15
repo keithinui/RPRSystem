@@ -3,7 +3,7 @@ const textRR = document.getElementById('textRR');
 const textBorg = document.getElementById('textBorg');
 const leaveTrigger = document.getElementById('js-leave-trigger');
 const container = document.getElementById("canvas_warp");
-const picture = document.getElementById("remote-streams");
+const picture = document.getElementById("js-remote-streams");
 
 
 var heartRateData;                // 0. Heart rate data
@@ -90,6 +90,8 @@ var beforeUnloadEvent = function(e){
 container.onmousedown = function(e) {
 
     console.log("onmousedown event!!");
+
+    picture.style.height = '200%';
 
 }
 
