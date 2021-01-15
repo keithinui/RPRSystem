@@ -91,7 +91,8 @@ container.onmousedown = function(e) {
 
     console.log("onmousedown event!!");
 
-    picture.style.height = '200%';
+    // 下記では、背景が大きくなるが肝心の画像の大きさはそのまま。
+    // picture.style.height = '200%';
 
 }
 
