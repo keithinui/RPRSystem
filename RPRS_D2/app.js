@@ -1,7 +1,10 @@
-﻿var textPR = document.getElementById('textPR');
-var textRR = document.getElementById('textRR');
-var textBorg = document.getElementById('textBorg');
-var leaveTrigger = document.getElementById('js-leave-trigger');
+﻿const textPR = document.getElementById('textPR');
+const textRR = document.getElementById('textRR');
+const textBorg = document.getElementById('textBorg');
+const leaveTrigger = document.getElementById('js-leave-trigger');
+const canvas = document.getElementById("container100");
+const picture = document.getElementById("remote-streams");
+
 
 var heartRateData;                // 0. Heart rate data
 var respRateData;                 // 1. Resp. rate data
@@ -60,6 +63,12 @@ window.onload = function () {
   //-------------------------------------------------------------------
   // Make an event to cofirm closong window
   window.addEventListener('beforeunload', beforeUnloadEvent, false);
+
+  //-------------------------------------------------------------------
+  // Display picture in center
+  canvas.scrollTop = (picture.height - canvas.clientHeight)/2;
+  canvas.scrollLeft = (picture.width - canvas.clientWidth)/2;
+
 
 }
 
