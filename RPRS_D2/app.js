@@ -2,7 +2,7 @@
 const textRR = document.getElementById('textRR');
 const textBorg = document.getElementById('textBorg');
 const leaveTrigger = document.getElementById('js-leave-trigger');
-const container = document.getElementById("container100");
+const container = document.getElementById("canvas_warp");
 const picture = document.getElementById("remote-streams");
 
 
