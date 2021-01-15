@@ -33,6 +33,8 @@ function onOneSecRihaTimer() {
 //  Initial setup
 // ********************************************************************
 window.onload = function () {
+  console.log("onload event!!");
+
   //-------------------------------------------------------------------
   // Make position offset for each waveform
   for (var k = 0; k < ch; ++k) {
