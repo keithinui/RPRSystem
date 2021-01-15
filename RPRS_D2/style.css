@@ -89,11 +89,10 @@ video {
   align-items: center;
   padding: 5px;
 }
-
-.remote-streams {
+.canvas_warp{
+  overflow: scroll;
   width: 100%;
   height: 100%;
-  overflow: scroll;
 }
 
 /* ----------------------------------- */
