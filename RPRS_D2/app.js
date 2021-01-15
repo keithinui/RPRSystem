@@ -93,6 +93,7 @@ container.onmousedown = function(e) {
 
     // 下記では、背景が大きくなるが肝心の画像の大きさはそのまま。
     // picture.style.height = '200%';
+    picture.height = "1000";
 
 }
 
