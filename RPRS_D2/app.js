@@ -57,7 +57,7 @@ window.onload = function () {
 
   //-------------------------------------------------------------------
   // Hide Leave button
-  leaveTrigger.style = "background:#00F00F";
+  leaveTrigger.style = "background:#00F00F; width:20vw; height:6vh;";
   leaveTrigger.style.display = "none";
 
   //-------------------------------------------------------------------
