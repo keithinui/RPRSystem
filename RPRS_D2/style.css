@@ -320,4 +320,11 @@ video {
   background-color: #484848;
 }
 
+.meta {
+  text-align: center;
+  font-family: "arial";
+  font-size: 8px;
+  color: gray;
+}
+
 
