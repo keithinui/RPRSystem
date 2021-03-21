@@ -13,60 +13,69 @@
 	<!-- Main Display -->
     <div class="container0">
           <div class="container100">
-              <div class="canvas_warp" id="canvas_warp">
-                  <!-- Video(Remote) -->
-                  <div class="remote-streams" id="js-remote-streams"></div>
+              <div class="container110">
+                  <div class="canvas_warp" id="canvas_warp">
+                      <!-- Video(Remote) -->
+                      <div class="remote-streams" id="js-remote-streams"></div>
+                  </div>
               </div>
+              <div class="container150">
+                  <div id="canvas_wrapper">
+                      <canvas id="waveformCanvas"></canvas>
+                  </div>
+             </div>
           </div>
+
           <div class="container200">
               <div class="container210">
+                  <div class="container213">
+                      <div class="patien-information">
+                          <!-- Title, button, Lables -->
+                          <div class="note">
+                              <br>Mode:<a href="#">mesh</a> / <a href="#sfu">sfu</a>
+                              <span id="js-room-mode"></span>  Room:
+                              <input type="text" placeholder="Room Name" id="js-room-id" value="001" style="width:50px;">
 
-                  <div class="patien-information">
-                      <!-- Title, button, Lables -->
-                      <div class="note">
-                          <br>Mode:<a href="#">mesh</a> / <a href="#sfu">sfu</a>
-                          <span id="js-room-mode"></span>  Room:
-                          <input type="text" placeholder="Room Name" id="js-room-id" value="001" style="width:50px;">
-
-                          <br>
-                          <button id="js-send-trigger"     style="background:''; width:150px">Send Waveforms</button>
-                          <button id="js-send-borgTrigger" style="background:''; width:80px">Borg</button>
-                          <button id="js-volume-up"  >Vol Up</button>
-                          <button id="js-volume-down">Down</button>
-<!--
-                          <input type="button" value="Test" onclick="promptBorg('Borg Dialog\nTest', 2)" >
--->
-                          <button id="capture">Capture</button>
-                          <canvas id="draw" style="background:#f0f0f0; height:50px;"></canvas>
-
-                          </br>
-
-                          <div class="dataBattery">
-                              <a class="note2" id="rihabilitationTime">00:00</a>
-                              <a class="note">Battery[%]:</a>
-                              <a class="note" id="statusBatteryLavel">--</a>
-                              <a class="note">Borg:</a>
-                              <a class="note2" id="textBorg" style="background:#f0f0f0; width:50px">--</a>
-                              <a class="note">Vol.:</a>
-                              <a class="note" id="statusVolumeLavel">--</a>
+                              <div class="dataBattery">
+                                  <a class="note2" id="rihabilitationTime">00:00</a>
+                                  <a class="note">Battery[%]:</a>
+                                  <a class="note" id="statusBatteryLavel">--</a>
+                                  <a class="note">Borg:</a>
+                                  <a class="note2" id="textBorg" style="background:#f0f0f0; width:50px">--</a>
+                                  <a class="note">Vol.:</a>
+                                  <a class="note" id="statusVolumeLavel">--</a>
+                              </div>
                           </div>
-                      </div>
-
-                      <!-- Messages and button -->
-                      <div>
-                          <pre class="messages" id="js-messages"></pre>
+                          <canvas id="draw"                style="background:#f0f0f0; height:50px; height:20%"></canvas>
                       </div>
                   </div>
 
-                  <div class="controls">
-                      <button class="buttons" id="js-join-trigger">Join Room</button>
-                      <button class="buttons" id="js-leave-trigger">Leave Room</button>
+                  <div class="container215">
+                      <div class="local-stream">
+                          <!-- Video(Local) -->
+                          <video id="js-local-stream"></video>
+                      </div>
+
+                      <div class="controls">
+                          <button class="buttons" id="js-join-trigger"  style="width:300px; height:30%">Join Room</button>
+                          <button class="buttons" id="js-leave-trigger" style="width:300px; height:30%">Leave Room</button>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="container230">
+                  <!-- Messages and button -->
+                  <div class="container232">
+                      <button class="buttons" id="js-send-trigger"     style="background:'' ">Send Waveforms</button>
+                      <button class="buttons" id="js-send-borgTrigger" style="background:'' ">Borg</button>
+                      <button class="buttons" id="js-volume-up"        style="">Vol Up</button>
+                      <button class="buttons" id="js-volume-down"      style="">Down</button>
+                      <button class="buttons" id="capture"             style="">Capture</button>
+                  </div>
+                  <div class="container234">
+                      <pre class="messages" id="js-messages"></pre>
                   </div>
 
-                  <div class="local-stream">
-                      <!-- Video(Local) -->
-                      <video id="js-local-stream"></video>
-                  </div>
               </div>
 
               <div class="container250">
@@ -86,10 +95,6 @@
                       <div class="graph01">Trend Graph (RR)</div>
                   </div>
 
-                  <div id="canvas_wrapper">
-                      <canvas id="waveformCanvas"></canvas>
-                  </div>
-                 <div class="meta"><p id="js-meta"></p></div>
 
               </div>
 
@@ -125,8 +130,6 @@
 		<input style="border-radius:5px; font-size:large; width:50%;" type="button" value="OK" onclick="checkBorgClose(1)">
 		</div>
 	</div>
-
-
 
   </div>
 
