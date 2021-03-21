@@ -190,7 +190,7 @@ video {
 
 /* ----------------------------------- */
 .patien-information{
-  width: 65%;
+  width: 100%;
   height: 100%;
 }
 
@@ -204,7 +204,7 @@ video {
   width: 100%;
   align-items: center;
   background-color: #eee;
-  min-hight: 200px;
+  min-hight: 300px;
   margin:  0 auto;
   overflow: scroll;
 }
@@ -323,7 +323,7 @@ video {
 .meta {
   text-align: center;
   font-family: "arial";
-  font-size: 8px;
+  font-size: 6px;
   color: gray;
 }
 
