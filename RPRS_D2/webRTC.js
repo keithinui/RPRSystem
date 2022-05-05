@@ -154,8 +154,6 @@ var volumeLevel;			// Volume level of phone side (patient side)
 
     // for closing room members
     room.on('peerLeave', peerId => {
-	    messages.textContent += 'peerLeave event!\n';
-	    
       const remoteVideo = remoteVideos.querySelector(
         `[data-peer-id="${peerId}"]`
       );
