@@ -378,9 +378,10 @@ video.onloadedmetadata = function(){ //動画が読み込まれてから処理�
 //
 /////////////////////////////////////////////////////////////////////////
 var timerFunction = function() {
-	
+
     console.log("Timer");
     const pcs = room.getPeerConnections();
+
     pcs.getStats(null).then(stats => {
     let statsOutput = "";
 
@@ -388,17 +389,21 @@ var timerFunction = function() {
       statsOutput += `<h2>Report: ${report.type}</h2>\n<strong>ID:</strong> ${report.id}<br>\n` +
                      `<strong>Timestamp:</strong> ${report.timestamp}<br>\n`;
 
-    // Now the statistics for this report; we intentionally drop the ones we
-    // sorted to the top above
+      // Now the statistics for this report; we intentionally drop the ones we
+      // sorted to the top above
 
-    Object.keys(report).forEach(statName => {
+      Object.keys(report).forEach(statName => {
         if (statName !== "id" && statName !== "timestamp" && statName !== "type") {
-            statsOutput += `<strong>${statName}:</strong> ${report[statName]}<br>\n`;
-            }
-        });
+          statsOutput += `<strong>${statName}:</strong> ${report[statName]}<br>\n`;
+        }
+      });
     });
 
+//    document.querySelector(".stats-box").innerHTML = statsOutput;
+//    document.querySelector('script[src*=skyway]').innerHTML = statsOutput;
     document.getElementById('js-meta').innerHTML = statsOutput;
+  });
+
 };
 
 
