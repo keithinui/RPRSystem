@@ -378,6 +378,9 @@ video.onloadedmetadata = function(){ //動画が読み込まれてから処理�
 //
 /////////////////////////////////////////////////////////////////////////
 var timerFunction = function() {
+	
+    console.log("Timer");
+	
     room.getStats(null).then(stats => {
     let statsOutput = "";
 
