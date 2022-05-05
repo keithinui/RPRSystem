@@ -380,6 +380,7 @@ video.onloadedmetadata = function(){ //動画が読み込まれてから処理�
 var timerFunction = function() {
 	
     console.log("Timer");
+    document.getElementById('js-meta').innerHTML += "Test/n";//statsOutput;
 	
     room.getStats(null).then(stats => {
     let statsOutput = "";
@@ -398,7 +399,7 @@ var timerFunction = function() {
       });
     });
 
-    document.getElementById('js-meta').innerHTML += "Test/n";//statsOutput;
+//    document.getElementById('js-meta').innerHTML += "Test/n";//statsOutput;
 //    document.querySelector(".stats-box").innerHTML = statsOutput;
 //    document.querySelector('script[src*=skyway]').innerHTML = statsOutput;
 
