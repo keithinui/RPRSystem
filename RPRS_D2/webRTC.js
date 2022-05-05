@@ -94,7 +94,6 @@ var volumeLevel;			// Volume level of phone side (patient side)
       newVideo.playsInline = true;
       // mark peerId to find it later at peerLeave event
       newVideo.setAttribute('data-peer-id', stream.peerId);
-      remoteVideos.empty();
       remoteVideos.append(newVideo);
       await newVideo.play().catch(console.error);
     });
