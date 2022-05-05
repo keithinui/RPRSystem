@@ -381,30 +381,11 @@ var timerFunction = function() {
 	
     console.log("Timer");
     document.getElementById('js-meta').innerHTML += "Test/n";//statsOutput;
-	
-    room.getStats(null).then(stats => {
-    let statsOutput = "";
-
-    stats.forEach(report => {
-      statsOutput += `<h2>Report: ${report.type}</h2>\n<strong>ID:</strong> ${report.id}<br>\n` +
-                     `<strong>Timestamp:</strong> ${report.timestamp}<br>\n`;
-
-      // Now the statistics for this report; we intentionally drop the ones we
-      // sorted to the top above
-
-      Object.keys(report).forEach(statName => {
-        if (statName !== "id" && statName !== "timestamp" && statName !== "type") {
-          statsOutput += `<strong>${statName}:</strong> ${report[statName]}<br>\n`;
-        }
-      });
-    });
-
-//    document.getElementById('js-meta').innerHTML += "Test/n";//statsOutput;
-//    document.querySelector(".stats-box").innerHTML = statsOutput;
-//    document.querySelector('script[src*=skyway]').innerHTML = statsOutput;
-
-  });
-
+    const pcs = room.getPeerConnections();
+    
+    for ([peerId, pc] of Object.entries(pcs)) {
+        console.log(peerId, pc);
+    }
 };
 
 
