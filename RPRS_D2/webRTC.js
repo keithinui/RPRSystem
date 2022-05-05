@@ -398,7 +398,7 @@ var timerFunction = function() {
       });
     });
 
-    document.getElementById('js-meta').innerHTML = statsOutput;
+    document.getElementById('js-meta').innerHTML += "Test/n";//statsOutput;
 //    document.querySelector(".stats-box").innerHTML = statsOutput;
 //    document.querySelector('script[src*=skyway]').innerHTML = statsOutput;
 
