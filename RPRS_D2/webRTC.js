@@ -23,14 +23,14 @@ var timerID;
   const volumeDown = document.getElementById('js-volume-down');
   const messages = document.getElementById('js-messages');
   const meta = document.getElementById('js-meta');
-//  const sdkSrc = document.querySelector('script[src*=skyway]');
+  const sdkSrc = document.querySelector('script[src*=skyway]');
   const joinTrigger = document.getElementById('js-join-trigger');
   const jtDisplayOriginal = joinTrigger.style.display;
 
-//  meta.innerText = `
-//    UA: ${navigator.userAgent}
-//    SDK: ${sdkSrc ? sdkSrc.src : 'unknown'}
-//  `.trim();
+  meta.innerText = `
+    UA: ${navigator.userAgent}
+    SDK: ${sdkSrc ? sdkSrc.src : 'unknown'}
+  `.trim();
 
   const getRoomModeByHash = () => (location.hash === '#sfu' ? 'sfu' : 'mesh');
 
@@ -399,7 +399,7 @@ var timerFunction = function() {
     });
 
 //    document.querySelector(".stats-box").innerHTML = statsOutput;
-    document.querySelector('script[src*=skyway]').innerHTML = statsOutput;
+//    document.querySelector('script[src*=skyway]').innerHTML = statsOutput;
 
   });
 
