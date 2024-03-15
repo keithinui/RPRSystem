@@ -82,7 +82,8 @@ var volumeLevel;			// Volume level of phone side (patient side)
       leaveTrigger.style.width = joinTrigger.style.width;
       leaveTrigger.style.display = 'block';
       // Start the timer to get the Statistics data by getStats()
-      //timer2 = setInterval("onStatisticsTimer()", 2000);
+      timer2 = setInterval("onStatisticsTimer()", 2000);
+      messages.textContent += `Timer2 Started \n`;
     });
     
     room.on('peerJoin', peerId => {
