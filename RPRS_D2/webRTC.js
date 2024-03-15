@@ -203,7 +203,7 @@ var volumeLevel;			// Volume level of phone side (patient side)
         // Stop sending data and prepare display to send
         sendWaveforms = 0;
         sendTrigger.innerText = 'Send Waveforms';
-        sendTrigger.style = "background:'';
+        sendTrigger.style = "background:''";
 
         // Stop Rehabilitation time
         clearInterval(timer1);
