@@ -22,9 +22,8 @@ var startTime = 0;                // Rehabilitation time
 // Timer to get the Statistics data by getStats()
 // ********************************************************************
 function onStatisticsTimer() {
-      messages.textContent += `Timer2 event!! \n`;
 
-	//            console.log("Timer for getStats!!"); // 90000
+	console.log("Timer for getStats!!------------------------------"); // 90000
 }
 
 // ********************************************************************
