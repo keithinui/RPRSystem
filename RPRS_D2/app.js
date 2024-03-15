@@ -23,14 +23,14 @@ var startTime = 0;                // Rehabilitation time
 // Timer to get the Statistics data by getStats()
 // ********************************************************************
 function onStatisticsTimer() {
-    const stats = await publication.getStats(subscriber);
+//    const stats = await publication.getStats(subscriber);
     // stats is [{},{},{},...]
-    stats.forEach((report) => {
+//    stats.forEach((report) => {
         // When report is `RTCCodecStats` Object.
-        if(report.type == "codec") {
-            console.log(report.clockRate); // 90000
-        }
-    });
+//        if(report.type == "codec") {
+            console.log("Timer for getStats!!"); // 90000
+//        }
+//    });
 }
 
 // ********************************************************************
