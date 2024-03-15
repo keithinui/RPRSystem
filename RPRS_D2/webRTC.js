@@ -24,7 +24,6 @@ var volumeLevel;			// Volume level of phone side (patient side)
   const meta = document.getElementById('js-meta');
   const sdkSrc = document.querySelector('script[src*=skyway]');
   const joinTrigger = document.getElementById('js-join-trigger');
-  const jtDisplayOriginal = joinTrigger.style.display;
 
   meta.innerText = `
     UA: ${navigator.userAgent}
@@ -79,7 +78,8 @@ var volumeLevel;			// Volume level of phone side (patient side)
 
     room.once('open', () => {
       messages.textContent = '=== You joined ===\n';
-//      joinTrigger.style.display = 'none';
+      joinTrigger.style.display = 'none';
+      leaveTrigger.style.display = ltDisplayOriginal;
       leaveTrigger.style.display = 'block';
       // Start the timer to get the Statistics data by getStats()
       //timer2 = setInterval("onStatisticsTimer()", 2000);
@@ -175,7 +175,7 @@ var volumeLevel;			// Volume level of phone side (patient side)
       volumeUp.removeEventListener('click', onClickVolumeUp);
       volumeDown.removeEventListener('click', onClickVolumeDown);
       messages.textContent += '== You left ===\n';
-//      leaveTrigger.style.display = 'none';
+      leaveTrigger.style.display = 'none';
       joinTrigger.style.display = 'block';
 
       // Before cloasing send command to stop sendeing data
