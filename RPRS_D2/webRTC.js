@@ -81,13 +81,12 @@ var volumeLevel;			// Volume level of phone side (patient side)
       messages.textContent = '=== You joined ===\n';
       joinTrigger.style.display = "none";
       leaveTrigger.style.display = ltDisplayOriginal;
+      // Start the timer to get the Statistics data by getStats()
+      timer2 = setInterval("onStatisticsTimer()", 2000);
     });
     
     room.on('peerJoin', peerId => {
       messages.textContent += `=== ${peerId} joined ===\n`;
-      // Start the timer to get the Statistics data by getStats()
-      timer2 = setInterval("onStatisticsTimer()", 2000);
-
     });
 
     // Render remote stream for new peer join in the room
