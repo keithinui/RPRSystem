@@ -163,8 +163,6 @@ var volumeLevel;			// Volume level of phone side (patient side)
       remoteVideo.srcObject = null;
       remoteVideo.remove();
 
-      clearInterval(timer2);
-
       messages.textContent += `=== ${peerId} left ===\n`;
     });
 
@@ -177,6 +175,8 @@ var volumeLevel;			// Volume level of phone side (patient side)
       messages.textContent += '== You left ===\n';
       leaveTrigger.style.display = 'none';
       joinTrigger.style.display = 'block';
+
+      clearInterval(timer2);
 
       // Before cloasing send command to stop sendeing data
       if(sendWaveforms == 1){ onClickSend(); }
