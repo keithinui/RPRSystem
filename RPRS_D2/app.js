@@ -21,7 +21,7 @@ var startTime = 0;                // Rehabilitation time
 // ********************************************************************
 // Timer to get the Statistics data by getStats()
 // ********************************************************************
-function onStatisticsTimer() {
+async function onStatisticsTimer() {
     const stats = await publication.getStats(subscriber);
     // stats is [{},{},{},...]
     stats.forEach((report) => {
