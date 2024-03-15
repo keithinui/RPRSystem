@@ -1,4 +1,4 @@
-﻿const textPR = document.getElementById('textPR');
+const textPR = document.getElementById('textPR');
 const textRR = document.getElementById('textRR');
 const textBorg = document.getElementById('textBorg');
 const leaveTrigger = document.getElementById('js-leave-trigger');
@@ -11,11 +11,27 @@ var respRateData;                 // 1. Resp. rate data
 var spo2 = 99;                    // 2. SpO" data
 var batteryLevel;                 // 3. Battery Level
 var dataSendWaveforms = [[]];     // Waveform Data to send (8ch x DataCount[ms])
-var timer1 =0;                    // Interval timer
+var timer1 =0;                    // Interval timer for rehabilitation time
+var timer2 =0;                    // Interval timer for getStats() API
 var sendWaveforms = 0;            // 0: Send waveforms Off,      1: On
 var calCommand = 0;               // 0: Cal Off,                 1: On
+var ltDisplayOriginal ;
 var startTime = 0;                // Rehabilitation time
 
+
+// ********************************************************************
+// Timer to get the Statistics data by getStats()
+// ********************************************************************
+function onStatisticsTimer() {
+    const stats = await publication.getStats(subscriber);
+    // stats is [{},{},{},...]
+    stats.forEach((report) => {
+        // When report is `RTCCodecStats` Object.
+        if(report.type == "codec") {
+            console.log(report.clockRate); // 90000
+        }
+    });
+}
 
 // ********************************************************************
 //  Rihabilitation Timer
@@ -57,7 +73,8 @@ window.onload = function () {
 
   //-------------------------------------------------------------------
   // Hide Leave button
-  leaveTrigger.style = "background:#00F00F; width:20vw; height:6vh;";
+  leaveTrigger.style = "background:#00F00F";
+  ltDisplayOriginal  = leaveTrigger.style.display;
   leaveTrigger.style.display = "none";
 
   //-------------------------------------------------------------------
@@ -91,7 +108,6 @@ container.onmousedown = function(e) {
 
     // 下記では、背景が大きくなるが肝心の画像の大きさはそのまま。
     // picture.style.height = '200%';
-    picture.height = "1000";
 
 }
 
