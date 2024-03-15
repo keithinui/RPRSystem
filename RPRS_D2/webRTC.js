@@ -225,7 +225,7 @@ var volumeLevel;			// Volume level of phone side (patient side)
         m_workDC.clearRect(0, 0, ox, oy);  // Clear all canvas
         sendWaveforms = 1;
         sendTrigger.innerText = 'Stop sending data';
-        sendTrigger.style = "background:#00F00F;
+        sendTrigger.style = "background:#00F00F";
         initDisplay = 1;
 
         // Start Rehabilitation timer
