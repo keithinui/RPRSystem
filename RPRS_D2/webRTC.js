@@ -80,9 +80,9 @@ var volumeLevel;			// Volume level of phone side (patient side)
     room.once('open', () => {
       messages.textContent = '=== You joined ===\n';
       joinTrigger.style.display = "none";
-      leaveTrigger.style.display = jtDisplayOriginal;
+      leaveTrigger.style.display = ltDisplayOriginal;
       // Start the timer to get the Statistics data by getStats()
-      timer2 = setInterval("onStatisticsTimer()", 2000);
+      //timer2 = setInterval("onStatisticsTimer()", 2000);
     });
     
     room.on('peerJoin', peerId => {
