@@ -22,7 +22,9 @@ var startTime = 0;                // Rehabilitation time
 // Timer to get the Statistics data by getStats()
 // ********************************************************************
 function onStatisticsTimer() {
-            console.log("Timer for getStats!!"); // 90000
+      messages.textContent += `Timer2 event!! \n`;
+
+	//            console.log("Timer for getStats!!"); // 90000
 }
 
 // ********************************************************************
@@ -66,7 +68,6 @@ window.onload = function () {
   //-------------------------------------------------------------------
   // Hide Leave button
   leaveTrigger.style = "background:#00F00F";
-  leaveTrigger.style.width = joinTrigger.style.width;
   leaveTrigger.style.display = 'none';
 
   //-------------------------------------------------------------------
