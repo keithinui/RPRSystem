@@ -1,4 +1,4 @@
-﻿const Peer = window.Peer;
+const Peer = window.Peer;
 var room;
 var peer;
 var waveLogData = [];  		// Log data of waveforms 
@@ -79,12 +79,15 @@ var volumeLevel;			// Volume level of phone side (patient side)
 
     room.once('open', () => {
       messages.textContent = '=== You joined ===\n';
-      joinTrigger.style.display = 'none';
-      leaveTrigger.style.display = '';
+      joinTrigger.style.display = "none";
+      leaveTrigger.style.display = ltDisplayOriginal;
     });
     
     room.on('peerJoin', peerId => {
       messages.textContent += `=== ${peerId} joined ===\n`;
+      // Start the timer to get the Statistics data by getStats()
+      timer2 = setInterval("onStatisticsTimer()", 2000);
+
     });
 
     // Render remote stream for new peer join in the room
@@ -155,11 +158,13 @@ var volumeLevel;			// Volume level of phone side (patient side)
     // for closing room members
     room.on('peerLeave', peerId => {
       const remoteVideo = remoteVideos.querySelector(
-        `[data-peer-id="${peerId}"]`
+        `[data-peer-id=${peerId}]`
       );
       remoteVideo.srcObject.getTracks().forEach(track => track.stop());
       remoteVideo.srcObject = null;
       remoteVideo.remove();
+
+      clearInterval(timer2);
 
       messages.textContent += `=== ${peerId} left ===\n`;
     });
@@ -171,8 +176,8 @@ var volumeLevel;			// Volume level of phone side (patient side)
       volumeUp.removeEventListener('click', onClickVolumeUp);
       volumeDown.removeEventListener('click', onClickVolumeDown);
       messages.textContent += '== You left ===\n';
-      leaveTrigger.style.display = 'none';
-      joinTrigger.style.display = '';
+      leaveTrigger.style.display = "none";
+      joinTrigger.style.display = jtDisplayOriginal;
 
       // Before cloasing send command to stop sendeing data
       if(sendWaveforms == 1){ onClickSend(); }
@@ -199,7 +204,7 @@ var volumeLevel;			// Volume level of phone side (patient side)
         // Stop sending data and prepare display to send
         sendWaveforms = 0;
         sendTrigger.innerText = 'Send Waveforms';
-        sendTrigger.style = "background:'';";
+        sendTrigger.style = "background:''; width:200px";
 
         // Stop Rehabilitation time
         clearInterval(timer1);
@@ -221,7 +226,7 @@ var volumeLevel;			// Volume level of phone side (patient side)
         m_workDC.clearRect(0, 0, ox, oy);  // Clear all canvas
         sendWaveforms = 1;
         sendTrigger.innerText = 'Stop sending data';
-        sendTrigger.style = "background:#00F00F;";
+        sendTrigger.style = "background:#00F00F; width:200px";
         initDisplay = 1;
 
         // Start Rehabilitation timer
