@@ -80,7 +80,7 @@ var volumeLevel;			// Volume level of phone side (patient side)
     room.once('open', () => {
       messages.textContent = '=== You joined ===\n';
       joinTrigger.style.display = "none";
-      leaveTrigger.style.display = ltDisplayOriginal;
+      leaveTrigger.style.display = jtDisplayOriginal;
       // Start the timer to get the Statistics data by getStats()
       timer2 = setInterval("onStatisticsTimer()", 2000);
     });
