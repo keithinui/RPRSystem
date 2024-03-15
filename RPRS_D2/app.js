@@ -15,7 +15,6 @@ var timer1 =0;                    // Interval timer for rehabilitation time
 var timer2 =0;                    // Interval timer for getStats() API
 var sendWaveforms = 0;            // 0: Send waveforms Off,      1: On
 var calCommand = 0;               // 0: Cal Off,                 1: On
-var ltDisplayOriginal ;
 var startTime = 0;                // Rehabilitation time
 
 
@@ -67,8 +66,7 @@ window.onload = function () {
   //-------------------------------------------------------------------
   // Hide Leave button
   leaveTrigger.style = "background:#00F00F";
-  ltDisplayOriginal  = leaveTrigger.style.display;
-  leaveTrigger.style.display = "none";
+  leaveTrigger.style.display = 'none';
 
   //-------------------------------------------------------------------
   // Make an event to cofirm closong window
