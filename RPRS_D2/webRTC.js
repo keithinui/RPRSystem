@@ -79,8 +79,8 @@ var volumeLevel;			// Volume level of phone side (patient side)
 
     room.once('open', () => {
       messages.textContent = '=== You joined ===\n';
-      joinTrigger.style.display = "none";
-      leaveTrigger.style.display = ltDisplayOriginal;
+      joinTrigger.style.display = 'none';
+      leaveTrigger.style.display = 'block';
       // Start the timer to get the Statistics data by getStats()
       //timer2 = setInterval("onStatisticsTimer()", 2000);
     });
@@ -175,8 +175,8 @@ var volumeLevel;			// Volume level of phone side (patient side)
       volumeUp.removeEventListener('click', onClickVolumeUp);
       volumeDown.removeEventListener('click', onClickVolumeDown);
       messages.textContent += '== You left ===\n';
-      leaveTrigger.style.display = "none";
-      joinTrigger.style.display = jtDisplayOriginal;
+      leaveTrigger.style.display = 'none';
+      joinTrigger.style.display = 'block';
 
       // Before cloasing send command to stop sendeing data
       if(sendWaveforms == 1){ onClickSend(); }
