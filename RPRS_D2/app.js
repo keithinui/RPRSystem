@@ -12,7 +12,6 @@ var spo2 = 99;                    // 2. SpO" data
 var batteryLevel;                 // 3. Battery Level
 var dataSendWaveforms = [[]];     // Waveform Data to send (8ch x DataCount[ms])
 var timer1 =0;                    // Interval timer for rehabilitation time
-var timer2 =0;                    // Interval timer for getStats() API
 var sendWaveforms = 0;            // 0: Send waveforms Off,      1: On
 var calCommand = 0;               // 0: Cal Off,                 1: On
 var startTime = 0;                // Rehabilitation time
