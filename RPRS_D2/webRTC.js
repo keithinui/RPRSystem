@@ -8,7 +8,8 @@ var borgDialogOpen = 0;		// 0: dialog not open,        1: dialog open
 var borgMeasurement = 0;	// 0: Stop borg measurement   1: Start borg measurement  
 // var borgItems = ["未選択", "10 非常に強い", "9", "8", "7   とても強い", "6", "5    強い", "4    多少強い", "3", "2    弱い", "1    やや弱い", "0.5 非常に弱い", "0    感じない"];
 var borgItems = ["未選択", "0    感じない", "0.5 非常に弱い", "1    やや弱い", "2    弱い", "3", "4    多少強い", "5    強い", "6", "7   とても強い", "8", "9", "10 非常に強い"];
-var volumeLevel;			// Volume level of phone side (patient side)
+var volumeLevel;		// Volume level of phone side (patient side)
+var timer2;			// Interval timer for getStats() API
 
 (async function main() {
   const localVideo = document.getElementById('js-local-stream');
@@ -80,18 +81,20 @@ var volumeLevel;			// Volume level of phone side (patient side)
       messages.textContent = '=== You joined ===\n';
       joinTrigger.style.display = 'none';
       leaveTrigger.style.display = 'block';
-      // Start the timer to get the Statistics data by getStats()
+	    
+      // Start the timer to get the Statistics data by getStats() API
+      const _PC = existingCall.getPeerConnection();
       timer2 = setInterval(async () => {
-        const stats = await publication.getStats(subscriber);
+        const stats = _PC.getStats();
         // stats is [{},{},{},...]
         stats.forEach((report) => {
           // When report is `RTCCodecStats` Object.
           if(report.type == "codec") {
-            console.log(report.clockRate); // 90000
+            console.log('TRC Stats: ' + report.clockRate); // 90000
           }
         });
       }, 2000);
-      messages.textContent += `Timer2 Started \n`;
+      console.log('Timer2 Started.');
     });
     
     room.on('peerJoin', peerId => {
