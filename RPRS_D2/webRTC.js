@@ -84,7 +84,7 @@ var timer2;			// Interval timer for getStats() API
 	    
       // Start the timer to get the Statistics data by getStats() API
       timer2 = setInterval(async () => {
-        const stats = await publication.getStats();
+        const stats = await localStream.getStats();
         // stats is [{},{},{},...]
         stats.forEach((report) => {
           // When report is `RTCCodecStats` Object.
