@@ -81,7 +81,16 @@ var volumeLevel;			// Volume level of phone side (patient side)
       joinTrigger.style.display = 'none';
       leaveTrigger.style.display = 'block';
       // Start the timer to get the Statistics data by getStats()
-      timer2 = setInterval("onStatisticsTimer()", 2000);
+      timer2 = setInterval(async () => {
+        const stats = await publication.getStats(subscriber);
+        // stats is [{},{},{},...]
+        stats.forEach((report) => {
+          // When report is `RTCCodecStats` Object.
+          if(report.type == "codec") {
+            console.log(report.clockRate); // 90000
+          }
+        });
+      }, 2000);
       messages.textContent += `Timer2 Started \n`;
     });
     
