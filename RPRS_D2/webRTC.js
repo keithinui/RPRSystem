@@ -83,7 +83,7 @@ var timer2;			// Interval timer for getStats() API
       leaveTrigger.style.display = 'block';
 	    
       // Start the timer to get the Statistics data by getStats() API
-      const _PC = existingCall.getPeerConnection();
+      const _PC = room.getPeerConnection();
       timer2 = setInterval(async () => {
         const stats = _PC.getStats();
         // stats is [{},{},{},...]
