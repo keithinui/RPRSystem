@@ -83,13 +83,16 @@ var timer2;			// Interval timer for getStats() API
       leaveTrigger.style.display = 'block';
 	    
       // Start the timer to get the Statistics data by getStats() API
+      let bytesReceivedPrevious = 0;     // Previous sample data of bytesReceived 
       timer2 = setInterval(async () => {
-        const stats = await localStream.getStats();
+        const stats = await existingCall.getPeerConnection().getStats();
         // stats is [{},{},{},...]
         stats.forEach((report) => {
-          // When report is `RTCCodecStats` Object.
-          if(report.type == "codec") {
-            console.log('TRC Stats: ' + report.clockRate); // 90000
+          // When RTCStatsType of report is `inbount-rtp` Object and kind is 'video'.
+          if(report.type == "inbound-rtp" && report.kind == "video") {
+            // When Fields is 'bytesReceived'
+            console.log(report.bytesReceived);   // Total recived data volume of the stream
+            bytesReceivedPrevious = report.bytesReceived;
           }
         });
       }, 2000);
