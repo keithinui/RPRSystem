@@ -28,8 +28,8 @@ let msg = "";
   const joinTrigger = document.getElementById('js-join-trigger');
   const leaveTrigger = document.getElementById('js-leave-trigger');
 
-  leaveTrigger.style.backgroundColor ="#00F00F";
-//  leaveTrigger.style.display = 'none';
+  leaveTrigger.style.backgroundColor = "#00F00F";
+  leaveTrigger.style.display = 'none';
 
   meta.innerText = `
     UA: ${navigator.userAgent}
@@ -158,7 +158,7 @@ let msg = "";
         if(bData==0x80){
             promptBorg("状況:\n[回答選択中]", bData);
             borgDialogOpen = 1;
-            sendBorg.style = "background:#00F00F";
+            sendBorg.style.backgroundColor = "#00F00F";
         }
         if(borgDialogOpen==1){
             if((bData & 0x0f) !=0){promptBorg("状況:\n[回答選択中]", bData);}
@@ -250,7 +250,7 @@ let msg = "";
         // Stop sending data and prepare display to send
         sendWaveforms = 0;
         sendTrigger.innerText = 'Send Waveforms';
-        sendTrigger.style = "background:''";
+        sendTrigger.style.backgroundColor = "''";
 
         // Stop Rehabilitation time
         clearInterval(timer1);
@@ -272,7 +272,7 @@ let msg = "";
         m_workDC.clearRect(0, 0, ox, oy);  // Clear all canvas
         sendWaveforms = 1;
         sendTrigger.innerText = 'Stop sending data';
-        sendTrigger.style = "background:#00F00F";
+        sendTrigger.style.backgroundColor = "#00F00F";
         initDisplay = 1;
 
         // Start Rehabilitation timer
@@ -390,7 +390,7 @@ function checkBorgClose(operation){
 
         borgDialogOpen = 0;
         let sendBorg = document.getElementById('js-send-borgTrigger');
-        sendBorg.style = "background:''";
+        sendBorg.style.backgroundColor = "''";
 }
 
 
