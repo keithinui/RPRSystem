@@ -9,7 +9,8 @@ var borgMeasurement = 0;	// 0: Stop borg measurement   1: Start borg measurement
 // var borgItems = ["未選択", "10 非常に強い", "9", "8", "7   とても強い", "6", "5    強い", "4    多少強い", "3", "2    弱い", "1    やや弱い", "0.5 非常に弱い", "0    感じない"];
 var borgItems = ["未選択", "0    感じない", "0.5 非常に弱い", "1    やや弱い", "2    弱い", "3", "4    多少強い", "5    強い", "6", "7   とても強い", "8", "9", "10 非常に強い"];
 var volumeLevel;		// Volume level of phone side (patient side)
-var timer2;			// Interval timer for getStats() API
+let timerStats;			// Interval timer for getStats() API
+let msg = "";
 
 (async function main() {
   const localVideo = document.getElementById('js-local-stream');
@@ -78,30 +79,20 @@ var timer2;			// Interval timer for getStats() API
     });
 
     room.once('open', () => {
-      messages.textContent = '=== You joined ===\n';
+      msg = '=== You joined ===\n';
+      messages.textContent = msg;
       joinTrigger.style.display = 'none';
       leaveTrigger.style.display = 'block';
-	    
-      // Start the timer to get the Statistics data by getStats() API
-      let bytesReceivedPrevious = 0;     // Previous sample data of bytesReceived 
-      timer2 = setInterval(async () => {
-        const stats = await existingCall.getPeerConnection().getStats();
-        // stats is [{},{},{},...]
-        stats.forEach((report) => {
-          // When RTCStatsType of report is `inbount-rtp` Object and kind is 'video'.
-          if(report.type == "inbound-rtp" && report.kind == "video") {
-            // When Fields is 'bytesReceived'
-            console.log(report.bytesReceived);   // Total recived data volume of the stream
-            bytesReceivedPrevious = report.bytesReceived;
-          }
-        });
-      }, 2000);
-      console.log('Timer2 Started.');
+      console.log("Mode: " + roomMode.textContent);
     });
     
     room.on('peerJoin', peerId => {
-      messages.textContent += `=== ${peerId} joined ===\n`;
+      msg += `=== ${peerId} joined ===\n`;
+      messages.textContent = msg;
     });
+
+    let bytesReceivedPrevious = 0;     // Previous sample data of bytesReceived
+    let bytesSentPrevious = 0;         // Previous sample data of bytesSent 
 
     // Render remote stream for new peer join in the room
     room.on('stream', async stream => {
@@ -112,6 +103,41 @@ var timer2;			// Interval timer for getStats() API
       newVideo.setAttribute('data-peer-id', stream.peerId);
       remoteVideos.append(newVideo);
       await newVideo.play().catch(console.error);
+
+      // Get data volume by using getStats API
+      timerStats = setInterval(async () => {
+        // Get peer connection followed by room mode
+        if(roomMode.textContent == "mesh"){
+          const pcs = room.getPeerConnections();
+          for ( [peerId, pc] of Object.entries(pcs) ) {
+            getRTCStats(await pc.getStats());
+          }
+        } else if(roomMode.textContext == "sfu"){
+          const pc = room.getPeerConnection();
+          getRTCStats(await pc.getStats());
+        }
+      },1000);
+
+      // Get bytesReceived and bytesSent from stats
+      function getRTCStats(stats) {
+        let bufR;
+        let bufS;
+        // stats is [{},{},{},...]
+        stats.forEach((report) => {
+          // When RTCStatsType of report is 'inbound-rtp' or 'outbound-rtp' Object and kind is 'video'.
+          if(report.kind == "video") {
+            if(report.type == "inbound-rtp") {
+              bufR = (report.bytesReceived - bytesReceivedPrevious)*8/1024/1024;
+              bytesReceivedPrevious = report.bytesReceived; // Total recived volume of the stream
+            }
+            if(report.type == "outbound-rtp") {
+              bufS = (report.bytesSent - bytesSentPrevious)*8/1024/1024;
+              bytesSentPrevious = report.bytesSent; // Total sent volume of the stream
+            }
+          }
+        });
+        messages.textContent = msg + `Received[Mbps]=${bufR.toFixed(2)}, Sent[Mbps]=${bufS.toFixed(2)}\n`;
+      }    
     });
 
     room.on('data', ({ data, src }) => {
@@ -177,7 +203,9 @@ var timer2;			// Interval timer for getStats() API
       remoteVideo.srcObject = null;
       remoteVideo.remove();
 
-      messages.textContent += `=== ${peerId} left ===\n`;
+      clearInterval(timerStats);    // Stop timer for getStats
+      msg += `=== ${peerId} left ===\n`;
+      messages.textContent = msg;
     });
 
     // for closing myself
@@ -186,7 +214,8 @@ var timer2;			// Interval timer for getStats() API
       sendBorg.removeEventListener('click', onClickSendBorg);
       volumeUp.removeEventListener('click', onClickVolumeUp);
       volumeDown.removeEventListener('click', onClickVolumeDown);
-      messages.textContent += '== You left ===\n';
+      msg += '== You left ===\n';
+      messages.textContent = msg; 
       leaveTrigger.style.display = 'none';
       joinTrigger.style.display = 'block';
 
