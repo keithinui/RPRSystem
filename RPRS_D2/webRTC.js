@@ -216,7 +216,7 @@ let msg = "";
       volumeDown.removeEventListener('click', onClickVolumeDown);
       msg += '== You left ===\n';
       messages.textContent = msg; 
-      leaveTrigger.style.display = 'none';
+//      leaveTrigger.style.display = 'none';
       joinTrigger.style.display = 'block';
 
       clearInterval(timer2);
