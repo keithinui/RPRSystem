@@ -58,7 +58,7 @@ window.onload = function () {
   //-------------------------------------------------------------------
   // Hide Leave button
   leaveTrigger.style = "background:#00F00F";
-  leaveTrigger.style.display = 'none';
+//  leaveTrigger.style.display = 'none';
 
   //-------------------------------------------------------------------
   // Make an event to cofirm closong window
