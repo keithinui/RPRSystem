@@ -26,6 +26,10 @@ let msg = "";
   const meta = document.getElementById('js-meta');
   const sdkSrc = document.querySelector('script[src*=skyway]');
   const joinTrigger = document.getElementById('js-join-trigger');
+  const leaveTrigger = document.getElementById('js-leave-trigger');
+
+  leaveTrigger.style = "background:#00F00F";
+//  leaveTrigger.style.display = 'none';
 
   meta.innerText = `
     UA: ${navigator.userAgent}
