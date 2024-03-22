@@ -1,7 +1,6 @@
 const textPR = document.getElementById('textPR');
 const textRR = document.getElementById('textRR');
 const textBorg = document.getElementById('textBorg');
-const leaveTrigger = document.getElementById('js-leave-trigger');
 const container = document.getElementById("canvas_warp");
 const picture = document.getElementById("js-remote-streams");
 
@@ -54,11 +53,6 @@ window.onload = function () {
   m_workDC.textBaseline = "top";
 
   WaveStep = (ox - stdW) / Sweep;	            // Number of count up step per sample
-
-  //-------------------------------------------------------------------
-  // Hide Leave button
-  leaveTrigger.style = "background:#00F00F";
-//  leaveTrigger.style.display = 'none';
 
   //-------------------------------------------------------------------
   // Make an event to cofirm closong window
