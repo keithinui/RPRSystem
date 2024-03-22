@@ -250,7 +250,7 @@ let msg = "";
         // Stop sending data and prepare display to send
         sendWaveforms = 0;
         sendTrigger.innerText = 'Send Waveforms';
-        sendTrigger.style.backgroundColor = "''";
+        sendTrigger.style.backgroundColor = ””;
 
         // Stop Rehabilitation time
         clearInterval(timer1);
@@ -390,7 +390,7 @@ function checkBorgClose(operation){
 
         borgDialogOpen = 0;
         let sendBorg = document.getElementById('js-send-borgTrigger');
-        sendBorg.style.backgroundColor = "''";
+        sendBorg.style.backgroundColor = ””;
 }
 
 
