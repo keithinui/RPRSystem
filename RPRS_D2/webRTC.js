@@ -120,9 +120,9 @@ let msg = "";
           const pc = room.getPeerConnection();
           getRTCStats(await pc.getStats());
         }
-      },1000);
+      },5000);
 
-      // Get bytesReceived and bytesSent from stats
+      // Get bytesReceived and bytesSent from stats and control local stream resolution
       function getRTCStats(stats) {
         let bufR;
         let bufS;
@@ -131,11 +131,11 @@ let msg = "";
           // When RTCStatsType of report is 'inbound-rtp' or 'outbound-rtp' Object and kind is 'video'.
           if(report.kind == "video") {
             if(report.type == "inbound-rtp") {
-              bufR = (report.bytesReceived - bytesReceivedPrevious)*8/1024/1024;
+              bufR = (report.bytesReceived - bytesReceivedPrevious)*8/1024/1024/5;
               bytesReceivedPrevious = report.bytesReceived; // Total recived volume of the stream
             }
             if(report.type == "outbound-rtp") {
-              bufS = (report.bytesSent - bytesSentPrevious)*8/1024/1024;
+              bufS = (report.bytesSent - bytesSentPrevious)*8/1024/1024/5;
               bytesSentPrevious = report.bytesSent; // Total sent volume of the stream
             }
           }
