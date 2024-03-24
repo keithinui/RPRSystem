@@ -184,8 +184,8 @@ let msg = "";
 	      searchState = 0;
 	      room.send(addChecksum("lclStreamM"));        // Send comand and checksum
 	    } else if (resoCtl < 40) {
-	      resoCtl += 1
-	      if (resoCtl >= 3){
+	      resoCtl += 1;
+	      if (resoCtl >= 33){
                 resoCtl = 40;                                // Set Resolution to High and initialize State
                 searchState = 0;
                 room.send(addChecksum("lclStreamH"));        // Send comand and checksum
@@ -200,8 +200,8 @@ let msg = "";
 	      searchState = 0;
 	      room.send(addChecksum("lclStreamL"));        // Send comand and checksum
 	    } else if (resoCtl < 30) {
-	      resoCtl += 1
-	      if (resoCtl >= 3){
+	      resoCtl += 1;
+	      if (resoCtl >= 23){
                 resoCtl = 30;                                // Set Resolution to Middle and initialize State
                 searchState = 0;
                 room.send(addChecksum("lclStreamM"));        // Send comand and checksum
