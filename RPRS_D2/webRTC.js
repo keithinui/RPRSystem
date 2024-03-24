@@ -145,7 +145,7 @@ let msg = "";
       //      --------+----------+-------------------------------------------------------------------------------
       //              |   High   | Default condition. Nothing to do except the following:
       //              |   (40)   |   if Data rate and Resolution don't much 
-      //              |          |     then set resolution to High and searchState to 0.
+      //              |          |     then set Resolution to High and searchState to 0.
       //       1.235 -+----------+--------------------------------------------------------------------------------
       //       [Mbps] |          | Check Data rate and Resorution(resoCtl) are appropriate for Middle.
       //  highMidLimit|  Middle  |   If High(40), change Resolution to Middle(30) and set searchState to 0.
