@@ -97,6 +97,10 @@ let msg = "";
 
     let bytesReceivedPrevious = 0;     // Previous sample data of bytesReceived
     let bytesSentPrevious = 0;         // Previous sample data of bytesSent 
+    let searchState = 0;
+    let resoCtl = 40;
+    const highMidLimit = 1.235;        // Limit for High to Middle.  (High:1.8 - Middle:0.67) / 2 + 0.67
+    const midLowLimit = 0.475;         // Limit for Middle to Low.   (0.67 - Low:0.28) / 2 + 0.28
 
     // Render remote stream for new peer join in the room
     room.on('stream', async stream => {
@@ -122,10 +126,38 @@ let msg = "";
         }
       },5000);
 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Get bytesReceived and bytesSent from stats and control local stream resolution
+      // 1: State contorol to acquire getStats
+      //    searchState 0: Set resolution,  1: Wait for 5s,  2: Acquire getStats after 10s
+      //      seartState = 0           seartState = 1           seartState = 2
+      //      +------------------------+------------------------+------+------+------....
+      //      0s                       5s                       10s    15s   20s
+      //      |                        |                        |
+      //      Set resorution         Wait for data stability    getStats after 10s every 5s
+      //
+      // 2: Check data rate appropriation and set local stream resolution
+      //     Data rate  Resolution    To dos
+      //                (resoCtl)
+      //      --------+----------+-------------------------------------------------------------------------------
+      //              |   High   | Default condition. Nothing to do.
+      //              |   (40)   |
+      //       1.235 -+----------+--------------------------------------------------------------------------------
+      //       [Mbps] |          | Check Data rate and Resorution are appropriate for Middle.
+      //  highMidLimit|  Middle  |   If High(40), change Resolution to Middle(30) and set searchState to 0.
+      //              |  (30-33) | If Middle continues for 15s,
+      //              |          |   then try to change to High and set searchState to 0.
+      //       0.475 -+----------+--------------------------------------------------------------------------------
+      //       [Mbps] |          | Check Data rate and Resorution are appropriate for Low.
+      //   midLowLimit|  Low     |   If Middle(30) or more, change Resolution to Low(20) and set searchState to 0.
+      //              |  (20-23) | If Low continues for 15s,
+      //              |          |   then try to change to Middle and set searchState to 0.
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       function getRTCStats(stats) {
         let bufR;
         let bufS;
+	if (searchState < 2) {searchState += 1; return;}
+	      
         // stats is [{},{},{},...]
         stats.forEach((report) => {
           // When RTCStatsType of report is 'inbound-rtp' or 'outbound-rtp' Object and kind is 'video'.
@@ -140,8 +172,43 @@ let msg = "";
             }
           }
         });
-        messages.textContent = msg + `Received[Mbps]=${bufR.toFixed(2)}, Sent[Mbps]=${bufS.toFixed(2)}\n`;
-      }    
+
+	// Check Data rate and Resorution are appropriate for Middle
+        if (bufR < highMidLimit && bufR >= midLowLimit){
+	  if (resoCtl >= 40){
+	    resoCtl = 30;
+	    searchState = 0;
+	    room.send(addChecksum("lclStreamM"));        // Send comand and checksum
+	  } else if (resoCtl < 40) {
+	    resoCtl += 1
+	    if (resoCtl >= 3){
+              resoCtl = 40;
+              searchState = 0;
+              room.send(addChecksum("lclStreamH"));        // Send comand and checksum
+	    }
+	  }
+	}
+
+	// Check Data rate and Resorution are appropriate for Low
+	if (bufR < midLowLimit){
+	  if (resoCtl >= 30){
+	    resoCtl = 20;
+	    searchState = 0;
+	    room.send(addChecksum("lclStreamL"));        // Send comand and checksum
+	  } else if (resoCtl < 30) {
+	    resoCtl += 1
+	    if (resoCtl >= 3){
+              resoCtl = 30;
+              searchState = 0;
+              room.send(addChecksum("lclStreamM"));        // Send comand and checksum
+	    }
+	  }
+
+	}
+
+	      
+        messages.textContent = msg + `Received[Mbps]=${bufR.toFixed(3)}, Sent[Mbps]=${bufS.toFixed(3)}, Resolution: \n`;
+      }   
     });
 
     room.on('data', ({ data, src }) => {
