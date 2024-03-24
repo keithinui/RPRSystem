@@ -209,7 +209,7 @@ let msg = "";
 	    }
 	  }     
 	}
-        messages.textContent = msg + `Received[Mbps]=${bufR.toFixed(3)}, Sent[Mbps]=${bufS.toFixed(3)}, Resolution:$(resoCtl), State:$(searchState) \n`;
+        messages.textContent = msg + `Received[Mbps]=${bufR.toFixed(3)}, Sent[Mbps]=${bufS.toFixed(3)}, Resolution:${resoCtl}, State:${searchState} \n`;
       }   
     });
 
