@@ -143,8 +143,9 @@ let msg = "";
       //     Data rate  Resolution    To dos
       //                (resoCtl)
       //      --------+----------+-------------------------------------------------------------------------------
-      //              |   High   | Default condition. Nothing to do.
-      //              |   (40)   |
+      //              |   High   | Default condition. Nothing to do except the following:
+      //              |   (40)   |   if Data rate and Resolution don't much 
+      //              |          |     then set resolution to High and searchState to 0.
       //       1.235 -+----------+--------------------------------------------------------------------------------
       //       [Mbps] |          | Check Data rate and Resorution(resoCtl) are appropriate for Middle.
       //  highMidLimit|  Middle  |   If High(40), change Resolution to Middle(30) and set searchState to 0.
@@ -177,6 +178,14 @@ let msg = "";
 	if (searchState < 2) {
 	  searchState += 1;     // Wait for data stability
 	} else {
+	  // Default condition
+	  if (bufR >= highMidLimit) {
+	    if (resoCtl < 40) {
+	      resoCtl = 40;                                // Set Resolution to High and initialize State
+	      searchState = 0;
+	      room.send(addChecksum("lclStreamH"));        // Send comand and checksum		    
+	    }
+	  }
 	  // Check Data rate and Resorution are appropriate for Middle
           if (bufR < highMidLimit && bufR >= midLowLimit){
 	    if (resoCtl >= 40){
